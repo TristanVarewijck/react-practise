@@ -1,11 +1,18 @@
-import { Link } from "react-router-dom";
+import SideBar from "../components/SideBar";
+import Editor from "../components/Editor";
 
 const Notes = () => {
+  const notes = [];
   return (
     <>
-      <h1>notes</h1>
-      <Link to={"/"}>Home</Link>
-      <Link to={"/game"}>Game</Link>
+      {notes.length > 0 ? (
+        <div className="myNotes">app</div>
+      ) : (
+        <div className="emptyState">
+          <h1>You have no notes</h1>
+          <button>Create one now</button>
+        </div>
+      )}
     </>
   );
 };
