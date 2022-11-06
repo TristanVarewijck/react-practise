@@ -7,6 +7,8 @@
 }
 
 body {
+  padding: 0px;
+  margin: 0px;
   font-family: var(--fontStyle);
   color: var(--black);
   background-color: var(--white);
@@ -39,4 +41,8 @@ button {
 
 .emptyState button:hover {
   opacity: 0.75;
+}
+
+.split {
+  display: flex;
 }
