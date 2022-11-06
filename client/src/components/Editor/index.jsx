@@ -14,7 +14,7 @@ const Editor = ({ findCurrentNote, updateNote }) => {
 
   return (
     <>
-      <div className="editor">
+      <div className="pane editor">
         <ReactMde
           value={findCurrentNote().body}
           onChange={updateNote}
@@ -23,6 +23,8 @@ const Editor = ({ findCurrentNote, updateNote }) => {
           generateMarkdownPreview={(markdown) =>
             Promise.resolve(converter.makeHtml(markdown))
           }
+          minEditorHeight={80}
+          heightUnits="vh"
         />
       </div>
     </>
