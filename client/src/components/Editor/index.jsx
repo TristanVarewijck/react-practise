@@ -14,10 +14,6 @@ const Editor = ({ findCurrentNote, updateNote }) => {
   });
   const currentNote = findCurrentNote();
 
-  const optionsHandler = () => {
-    console.log("invoked");
-  };
-
   return (
     <>
       <div className="editor">
@@ -29,13 +25,30 @@ const Editor = ({ findCurrentNote, updateNote }) => {
             </li>
             <li>{currentNote.title}</li>
           </ul>
-          <button className="breadCrumpButton" onClick={optionsHandler}>
+          <button className="breadCrumpButton">
             <img src="assets/icons/more-i.svg" alt="more-icon" />
           </button>
         </div>
 
         <div className="heading">
-          <h1>{currentNote.title}</h1>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+
+              // store to LocalStorage
+            }}
+          >
+            <input
+              name="title"
+              style={{ display: "block" }}
+              className="title-input"
+              type="text"
+              onChange={(event) => updateNote(event.target.value, "title")}
+              value={currentNote.title || ""}
+            />
+
+            <input type="submit" />
+          </form>
 
           <table>
             <tbody>

@@ -10,28 +10,29 @@ const Notes = () => {
   const [currentNoteId, setCurrentNoteId] = useState(
     (notes[0] && notes[0].id) || ""
   );
-  const date = new Date();
-
   const createNewNote = () => {
     const newNote = {
       id: nanoid(),
       body: "# Type your markdown note's title here",
-      title: "Hello World!",
-      date: parseDate(date),
+      title: "New Note",
+      date: parseDate(new Date()),
     };
 
     setNotes((prevState) => [...prevState, newNote]);
     setCurrentNoteId(newNote.id);
   };
 
-  // update a certain node / item
   const updateNote = (text, type) => {
     setNotes((oldNotes) => {
       return oldNotes.map((oldNote) => {
         if (oldNote.id === currentNoteId && type === "mde") {
-          return { ...oldNote, body: text };
+          return { ...oldNote, body: text, date: parseDate(new Date()) };
         } else if (oldNote.id === currentNoteId && type === "title") {
-          return { ...oldNote, title: text };
+          return {
+            ...oldNote,
+            title: text,
+            date: parseDate(new Date()),
+          };
         } else {
           return oldNote;
         }
@@ -58,7 +59,11 @@ const Notes = () => {
             setCurrentNoteId={setCurrentNoteId}
             updateNote={updateNote}
           />
-          <Editor findCurrentNote={findCurrentNote} updateNote={updateNote} />
+          <Editor
+            notes={notes}
+            findCurrentNote={findCurrentNote}
+            updateNote={updateNote}
+          />
         </Split>
       ) : (
         <div className="emptyState">

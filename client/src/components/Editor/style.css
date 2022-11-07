@@ -3,6 +3,13 @@
     height: 100vh;
 }
 
+.title-input {
+    all: unset;
+    font-size: 52px;
+    border: none;
+    font-weight: 600;
+}
+
 .react-mde {
     border: none;
     border-radius: 2px;
