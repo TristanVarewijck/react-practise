@@ -16,6 +16,7 @@ const Notes = () => {
     const newNote = {
       id: nanoid(),
       body: "# Type your markdown note's title here",
+      title: "Hello World!",
       date: parseDate(date),
     };
 
@@ -23,17 +24,20 @@ const Notes = () => {
     setCurrentNoteId(newNote.id);
   };
 
-  const updateNote = (text) => {
+  // update a certain node / item
+  const updateNote = (text, type) => {
     setNotes((oldNotes) => {
       return oldNotes.map((oldNote) => {
-        return oldNote.id === currentNoteId
-          ? { ...oldNote, body: text }
-          : oldNote;
+        if (oldNote.id === currentNoteId && type === "mde") {
+          return { ...oldNote, body: text };
+        } else if (oldNote.id === currentNoteId && type === "title") {
+          return { ...oldNote, title: text };
+        } else {
+          return oldNote;
+        }
       });
     });
   };
-
-  console.log(notes);
 
   const findCurrentNote = () => {
     return (
@@ -52,6 +56,7 @@ const Notes = () => {
             createNewNote={createNewNote}
             findCurrentNote={findCurrentNote}
             setCurrentNoteId={setCurrentNoteId}
+            updateNote={updateNote}
           />
           <Editor findCurrentNote={findCurrentNote} updateNote={updateNote} />
         </Split>
