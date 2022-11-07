@@ -1,26 +1,22 @@
-import { useState } from "react";
 import "./style.css";
 
-const Note = ({ content, setCurrentNoteId, findCurrentNote, updateNote }) => {
-  const [currentInputValue, setCurrentInputValue] = useState(content.title);
-
+const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
   return (
     <>
       <div
         className={`note ${
-          content.id === findCurrentNote().id ? "selected-note" : ""
+          note.id === findCurrentNote().id ? "selected-note" : ""
         }`}
-        onClick={() => setCurrentNoteId(content.id)}
+        onClick={() => setCurrentNoteId(note.id)}
       >
-        <small>{content.date}</small>
-
+        <small>{note.date}</small>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const { value } = e.target.title;
+          onSubmit={(event) => {
+            event.preventDefault();
 
-            console.log("my value:" + value);
-            updateNote(value, "title");
+            // store to localStorage
+
+            localStorage.setItem();
           }}
         >
           <input
@@ -28,8 +24,10 @@ const Note = ({ content, setCurrentNoteId, findCurrentNote, updateNote }) => {
             style={{ display: "block" }}
             className="title-input"
             type="text"
-            onChange={(text) => setCurrentInputValue(text.target.title.value)}
-            value={currentInputValue}
+            onChange={(event) => {
+              updateNote(event.target.value, "title");
+            }}
+            value={note.title || ""}
           />
 
           <input type="submit" />
