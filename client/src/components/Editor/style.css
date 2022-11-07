@@ -2,3 +2,44 @@
     padding: 1.2em;
     height: 100vh;
 }
+
+.react-mde {
+    border: none;
+    border-radius: 2px;
+}
+
+.mde-header {
+    border-top: 2.5px solid var(--lightGray);
+    border-bottom: 2.5px solid var(--lightGray);
+    background: none;
+    padding: 1em;
+}
+
+.breadCrump {
+    font-weight: 400;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid 2.5px var(--lightGray);
+    margin-bottom: 50px;
+}
+
+.breadCrump ul {
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    gap: 15px;
+    padding: 0px;
+}
+
+.breadCrump button {
+    background: none;
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.heading {
+    margin-bottom: 50px;
+}
