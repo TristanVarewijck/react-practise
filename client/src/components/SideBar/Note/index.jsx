@@ -39,7 +39,6 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
 
           {isSubmit ? (
             <input
-              className="edit-title"
               type="button"
               onClick={() => {
                 titleInput.current.removeAttribute("disabled", "");
@@ -57,6 +56,15 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
               value="save"
             />
           )}
+
+          <input
+            type="button"
+            onClick={() => {
+              titleInput.current.removeAttribute("disabled", "");
+              setIsSubmit(false);
+            }}
+            value="delete"
+          />
         </form>
       </div>
     </>
