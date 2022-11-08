@@ -1,4 +1,21 @@
 import "./style.css";
+import React from "react";
+
+interface NoteProps {
+  note: NoteProp;
+  findCurrentNote: any;
+  setCurrentNoteId: any;
+  updateNote: any;
+  isSubmit: boolean;
+  setIsSubmit: any;
+}
+
+type NoteProp = {
+  id: string;
+  title?: string;
+  body?: string;
+  date: string;
+};
 
 const Note = ({
   note,
@@ -7,7 +24,7 @@ const Note = ({
   updateNote,
   isSubmit,
   setIsSubmit,
-}) => {
+}: NoteProps): JSX.Element => {
   return (
     <>
       <div

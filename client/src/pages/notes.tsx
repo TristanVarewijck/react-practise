@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import Split from "react-split";
 import { nanoid } from "nanoid";
@@ -7,14 +8,14 @@ import { parseDate } from "../utils/parseDate";
 
 type noteProps = {
   id: string;
-  body: string;
-  title: string;
+  body?: string;
+  title?: string;
   date: string;
 };
 
 const Notes = (): JSX.Element => {
   const [isSubmit, setIsSubmit] = useState<boolean>(true);
-  const [notes, setNotes] = useState<noteProps[]>();
+  const [notes, setNotes] = useState<noteProps[]>([]);
   const [currentNoteId, setCurrentNoteId] = useState<string>(
     (notes[0] && notes[0].id) || ""
   );

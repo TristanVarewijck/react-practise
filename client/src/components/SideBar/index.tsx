@@ -1,5 +1,16 @@
 import "./style.css";
 import Note from "./Note";
+import React from "react";
+
+interface SideBarProps {
+  notes: any;
+  createNewNote: any;
+  findCurrentNote: any;
+  setCurrentNoteId: any;
+  updateNote: any;
+  isSubmit: boolean;
+  setIsSubmit: any;
+}
 
 const SideBar = ({
   notes,
@@ -9,8 +20,8 @@ const SideBar = ({
   updateNote,
   isSubmit,
   setIsSubmit,
-}) => {
-  const notesElements = notes.map((note) => {
+}: SideBarProps): JSX.Element => {
+  const notesElements = notes.map((note: any) => {
     return (
       <li key={note.id}>
         <Note
