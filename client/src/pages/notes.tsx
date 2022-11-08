@@ -5,13 +5,20 @@ import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
 import { parseDate } from "../utils/parseDate";
 
-const Notes = () => {
-  const [isSubmit, setIsSubmit] = useState(true);
-  const [notes, setNotes] = useState([]);
-  const [currentNoteId, setCurrentNoteId] = useState(
+type noteProps = {
+  id: string;
+  body: string;
+  title: string;
+  date: string;
+};
+
+const Notes = (): JSX.Element => {
+  const [isSubmit, setIsSubmit] = useState<boolean>(true);
+  const [notes, setNotes] = useState<noteProps[]>();
+  const [currentNoteId, setCurrentNoteId] = useState<string>(
     (notes[0] && notes[0].id) || ""
   );
-  const createNewNote = () => {
+  const createNewNote = (): void => {
     const newNote = {
       id: nanoid(),
       body: "# Type your markdown note's title here",
@@ -19,13 +26,13 @@ const Notes = () => {
       date: parseDate(new Date()),
     };
 
-    setNotes((prevState) => [...prevState, newNote]);
+    setNotes((prevState: noteProps[]) => [...prevState, newNote]);
     setCurrentNoteId(newNote.id);
   };
 
-  const updateNote = (text, type) => {
-    setNotes((oldNotes) => {
-      return oldNotes.map((oldNote) => {
+  const updateNote = (text: string, type: string) => {
+    setNotes((oldNotes: noteProps[]): noteProps[] => {
+      return oldNotes.map((oldNote: noteProps) => {
         if (oldNote.id === currentNoteId && type === "mde") {
           return { ...oldNote, body: text, date: parseDate(new Date()) };
         } else if (oldNote.id === currentNoteId && type === "title") {
@@ -41,7 +48,7 @@ const Notes = () => {
     });
   };
 
-  const findCurrentNote = () => {
+  const findCurrentNote = (): noteProps => {
     return (
       notes.find((note) => {
         return note.id === currentNoteId;
@@ -63,7 +70,6 @@ const Notes = () => {
             isSubmit={isSubmit}
           />
           <Editor
-            notes={notes}
             findCurrentNote={findCurrentNote}
             updateNote={updateNote}
             setIsSubmit={setIsSubmit}

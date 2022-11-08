@@ -1,5 +1,5 @@
 // to => yy/mm/dd
-export const parseDate = (newDate) => {
+export const parseDate = (newDate: Date): string => {
   const formattedDate =
     newDate.getFullYear() +
     ("0" + (newDate.getMonth() + 1)).slice(-2) +
