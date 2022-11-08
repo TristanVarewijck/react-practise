@@ -15,10 +15,47 @@
     font-size: 12.5px;
 }
 
-.note input {
+.note form {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.note form input[type="text"]:disabled {
+    flex-grow: 1;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom: 1px solid var(--black);
+    animation-name: none;
+}
+
+.note form input {
+    all: unset;
+}
+
+.note form input[type="text"] {
     all: unset;
     font-weight: 500;
     margin: 10px 0px 0px 0px;
+    padding-bottom: 0.2em;
+
+    border-bottom: 1px solid var(--black);
+
+    animation-name: snipper;
+    animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+}
+
+@keyframes snipper {
+    0% {
+        border-bottom-color: var(--black);
+    }
+    50% {
+        border-bottom-color: var(--white);
+    }
+    100% {
+        border-bottom-color: var(--black);
+    }
 }
 
 .selected-note {
