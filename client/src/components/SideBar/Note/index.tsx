@@ -11,7 +11,7 @@ interface NoteProps {
 }
 
 type NoteProp = {
-  id: string;
+  readonly id: string;
   title?: string;
   body?: string;
   date: string;
@@ -35,7 +35,7 @@ const Note = ({
       >
         <small>{note.date}</small>
         <form
-          onSubmit={(event) => {
+          onSubmit={(event): void => {
             event.preventDefault();
 
             // store to localStorage
@@ -47,7 +47,7 @@ const Note = ({
             style={{ display: "block", width: "100%" }}
             className="title-input"
             type="text"
-            onChange={(event) => {
+            onChange={(event): void => {
               updateNote(event.target.value, "title");
             }}
             value={note.title || ""}
@@ -57,7 +57,7 @@ const Note = ({
           {isSubmit ? (
             <input
               type="button"
-              onClick={() => {
+              onClick={(): void => {
                 setIsSubmit(false);
               }}
               value="edit"
@@ -65,7 +65,7 @@ const Note = ({
           ) : (
             <input
               type="submit"
-              onClick={() => {
+              onClick={(): void => {
                 setIsSubmit(true);
               }}
               value="save"
@@ -74,7 +74,7 @@ const Note = ({
 
           <input
             type="button"
-            onClick={() => {
+            onClick={(): void => {
               setIsSubmit(false);
             }}
             value="delete"

@@ -7,7 +7,7 @@ import Editor from "../components/Editor";
 import { parseDate } from "../utils/parseDate";
 
 type noteProps = {
-  id: string;
+  readonly id: string;
   body?: string;
   title?: string;
   date: string;
@@ -31,7 +31,7 @@ const Notes = (): JSX.Element => {
     setCurrentNoteId(newNote.id);
   };
 
-  const updateNote = (text: string, type: string) => {
+  const updateNote = (text: string, type: string): void => {
     setNotes((oldNotes: noteProps[]): noteProps[] => {
       return oldNotes.map((oldNote: noteProps) => {
         if (oldNote.id === currentNoteId && type === "mde") {
