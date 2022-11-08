@@ -6,6 +6,7 @@ import Editor from "../components/Editor";
 import { parseDate } from "../utils/parseDate";
 
 const Notes = () => {
+  const [isSubmit, setIsSubmit] = useState(true);
   const [notes, setNotes] = useState([]);
   const [currentNoteId, setCurrentNoteId] = useState(
     (notes[0] && notes[0].id) || ""
@@ -58,11 +59,15 @@ const Notes = () => {
             findCurrentNote={findCurrentNote}
             setCurrentNoteId={setCurrentNoteId}
             updateNote={updateNote}
+            setIsSubmit={setIsSubmit}
+            isSubmit={isSubmit}
           />
           <Editor
             notes={notes}
             findCurrentNote={findCurrentNote}
             updateNote={updateNote}
+            setIsSubmit={setIsSubmit}
+            isSubmit={isSubmit}
           />
         </Split>
       ) : (

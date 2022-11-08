@@ -1,12 +1,13 @@
-import { useRef, useState } from "react";
 import "./style.css";
 
-const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
-  const titleInput = useRef(null);
-  const [isSubmit, setIsSubmit] = useState(true);
-
-  console.log(isSubmit);
-
+const Note = ({
+  note,
+  setCurrentNoteId,
+  findCurrentNote,
+  updateNote,
+  isSubmit,
+  setIsSubmit,
+}) => {
   return (
     <>
       <div
@@ -32,16 +33,14 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
             onChange={(event) => {
               updateNote(event.target.value, "title");
             }}
-            ref={titleInput}
             value={note.title || ""}
-            disabled
+            disabled={isSubmit ? true : false}
           />
 
           {isSubmit ? (
             <input
               type="button"
               onClick={() => {
-                titleInput.current.removeAttribute("disabled", "");
                 setIsSubmit(false);
               }}
               value="edit"
@@ -50,7 +49,6 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
             <input
               type="submit"
               onClick={() => {
-                titleInput.current.setAttribute("disabled", "");
                 setIsSubmit(true);
               }}
               value="save"
@@ -60,7 +58,6 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
           <input
             type="button"
             onClick={() => {
-              titleInput.current.removeAttribute("disabled", "");
               setIsSubmit(false);
             }}
             value="delete"

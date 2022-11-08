@@ -3,11 +3,31 @@
     height: 100vh;
 }
 
-.title-input {
+.editor form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editor input {
     all: unset;
+}
+
+.editor input[type="text"]:disabled {
+    animation-name: none;
+}
+
+.editor input[type="text"] {
     font-size: 52px;
     border: none;
     font-weight: 600;
+    animation-name: snipper;
+    animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+}
+
+.editor input[type="button"] {
+    font-size: 16px;
 }
 
 .react-mde {
