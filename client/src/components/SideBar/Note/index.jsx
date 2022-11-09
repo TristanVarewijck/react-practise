@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useRef, useState } from "react";
 import "./style.css";
 
@@ -7,6 +8,11 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
 
   console.log(isSubmit);
 
+=======
+import "./style.css";
+
+const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
+>>>>>>> 4ef6b0f (fix: make edits live-time in note and editor title)
   return (
     <>
       <div
@@ -19,9 +25,16 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
         <form
           onSubmit={(event) => {
             event.preventDefault();
+<<<<<<< HEAD
 
             // store to localStorage
             // localStorage.setItem();
+=======
+
+            // store to localStorage
+
+            localStorage.setItem();
+>>>>>>> 4ef6b0f (fix: make edits live-time in note and editor title)
           }}
         >
           <input
@@ -32,9 +45,13 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
             onChange={(event) => {
               updateNote(event.target.value, "title");
             }}
+<<<<<<< HEAD
             ref={titleInput}
             value={note.title || ""}
             disabled
+=======
+            value={note.title || ""}
+>>>>>>> 4ef6b0f (fix: make edits live-time in note and editor title)
           />
 
           {isSubmit ? (
