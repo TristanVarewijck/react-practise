@@ -5,8 +5,6 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
   const titleInput = useRef(null);
   const [isSubmit, setIsSubmit] = useState(true);
 
-  console.log(isSubmit);
-
   return (
     <>
       <div
