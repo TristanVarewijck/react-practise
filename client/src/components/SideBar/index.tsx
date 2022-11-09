@@ -1,5 +1,19 @@
 import "./style.css";
 import Note from "./Note";
+import { noteProps } from "../../pages/notes";
+import React from "react";
+
+export interface sideBarProps {
+  notes: noteProps[];
+  createNewNote: () => void;
+  findCurrentNote: () => noteProps;
+  setCurrentNoteId: (id: string) => void;
+  updateNote: (text: string, type: string) => void;
+  setIsSubmit: (isSubmit: boolean) => void;
+  isSubmit: boolean;
+}
+
+// setTime;
 
 const SideBar = ({
   notes,
@@ -9,7 +23,7 @@ const SideBar = ({
   updateNote,
   isSubmit,
   setIsSubmit,
-}) => {
+}: sideBarProps): JSX.Element => {
   const notesElements = notes.map((note) => {
     return (
       <li key={note.id}>

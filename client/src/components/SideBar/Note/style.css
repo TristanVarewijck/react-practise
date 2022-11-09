@@ -28,6 +28,18 @@
   cursor: pointer;
 }
 
+.note form {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.note form input {
+  all: unset;
+  cursor: pointer;
+}
+
 .note form input[type="text"]:disabled {
   animation-name: none;
 }
@@ -48,6 +60,19 @@
 
 .selected-note small {
   color: var(--white);
+}
+
+/* keyframe editing state */
+@keyframes snipper {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 /* keyframe editing state */
