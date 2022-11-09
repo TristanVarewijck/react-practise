@@ -1,38 +1,70 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./style.css";
 
-const Note = ({ content, setCurrentNoteId, findCurrentNote, updateNote }) => {
-  const [currentInputValue, setCurrentInputValue] = useState(content.title);
+const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
+  const titleInput = useRef(null);
+  const [isSubmit, setIsSubmit] = useState(true);
+
+  console.log(isSubmit);
 
   return (
     <>
       <div
         className={`note ${
-          content.id === findCurrentNote().id ? "selected-note" : ""
+          note.id === findCurrentNote().id ? "selected-note" : ""
         }`}
-        onClick={() => setCurrentNoteId(content.id)}
+        onClick={() => setCurrentNoteId(note.id)}
       >
-        <small>{content.date}</small>
-
+        <small>{note.date}</small>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const { value } = e.target.title;
+          onSubmit={(event) => {
+            event.preventDefault();
 
-            console.log("my value:" + value);
-            updateNote(value, "title");
+            // store to localStorage
+            // localStorage.setItem();
           }}
         >
           <input
             name="title"
-            style={{ display: "block" }}
+            style={{ display: "block", width: "100%" }}
             className="title-input"
             type="text"
-            onChange={(text) => setCurrentInputValue(text.target.title.value)}
-            value={currentInputValue}
+            onChange={(event) => {
+              updateNote(event.target.value, "title");
+            }}
+            ref={titleInput}
+            value={note.title || ""}
+            disabled
           />
 
-          <input type="submit" />
+          {isSubmit ? (
+            <input
+              type="button"
+              onClick={() => {
+                titleInput.current.removeAttribute("disabled", "");
+                setIsSubmit(false);
+              }}
+              value="edit"
+            />
+          ) : (
+            <input
+              type="submit"
+              onClick={() => {
+                titleInput.current.setAttribute("disabled", "");
+                setIsSubmit(true);
+              }}
+              value="save"
+            />
+          )}
+
+          <input
+            type="button"
+            onClick={() => {
+              titleInput.current.removeAttribute("disabled", "");
+              setIsSubmit(false);
+            }}
+            value="delete"
+          />
         </form>
       </div>
     </>

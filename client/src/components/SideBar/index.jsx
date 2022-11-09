@@ -12,7 +12,7 @@ const SideBar = ({
     return (
       <li key={note.id}>
         <Note
-          content={note}
+          note={note}
           findCurrentNote={findCurrentNote}
           setCurrentNoteId={setCurrentNoteId}
           updateNote={updateNote}
