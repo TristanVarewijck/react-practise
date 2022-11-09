@@ -1,15 +1,8 @@
 .note {
-<<<<<<< HEAD
-    background-color: var(--lightGray);
-    padding: 1em;
-    opacity: 0.55;
-    border-radius: 4px;
-=======
   background-color: var(--lightGray);
   padding: 1em;
   opacity: 0.55;
   border-radius: 4px;
->>>>>>> 9ab3006847404bba9ccf8960604e1dc3be2bee86
 }
 
 .note:hover {
@@ -35,32 +28,18 @@
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .note form {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
 }
 
 .note form input {
-    all: unset;
-    cursor: pointer;
+  all: unset;
+  cursor: pointer;
 }
 
-.note form input[type="text"]:disabled {
-    animation-name: none;
-}
-
-.note form input[type="text"] {
-    all: unset;
-    font-weight: 500;
-    margin: 10px 0px 0px 0px;
-    animation-name: snipper;
-    animation-iteration-count: infinite;
-    animation-duration: 1.5s;
-}
-=======
 .note form input[type="text"]:disabled {
   animation-name: none;
 }
@@ -73,7 +52,6 @@
   animation-iteration-count: infinite;
   animation-duration: 1.5s;
 }
->>>>>>> 9ab3006847404bba9ccf8960604e1dc3be2bee86
 .selected-note {
   background-color: var(--black);
   color: var(--white);
@@ -99,13 +77,13 @@
 
 /* keyframe editing state */
 @keyframes snipper {
-    0% {
-        opacity: 0;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

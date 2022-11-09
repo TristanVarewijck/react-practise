@@ -1,27 +1,15 @@
-<<<<<<< HEAD
 import React from "react";
-=======
->>>>>>> 9ab3006847404bba9ccf8960604e1dc3be2bee86
 import { useState } from "react";
 import Split from "react-split";
 import { nanoid } from "nanoid";
 import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
 import { parseDate } from "../utils/parseDate";
-<<<<<<< HEAD
 
 export type noteProps = {
   readonly id: string;
   body?: string;
   title?: string;
-=======
-import React from "react";
-
-type noteProps = {
-  id: string;
-  body: string;
-  title: string;
->>>>>>> 9ab3006847404bba9ccf8960604e1dc3be2bee86
   date: string;
 };
 
@@ -43,11 +31,7 @@ const Notes = (): JSX.Element => {
     setCurrentNoteId(newNote.id);
   };
 
-<<<<<<< HEAD
   const updateNote = (text: string, type: string): void => {
-=======
-  const updateNote = (text: string, type: string) => {
->>>>>>> 9ab3006847404bba9ccf8960604e1dc3be2bee86
     setNotes((oldNotes: noteProps[]): noteProps[] => {
       return oldNotes.map((oldNote: noteProps) => {
         if (oldNote.id === currentNoteId && type === "mde") {

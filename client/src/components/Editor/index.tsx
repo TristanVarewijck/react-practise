@@ -3,12 +3,13 @@ import ReactMde from "react-mde";
 import Showdown from "showdown";
 import "./style.css";
 import React from "react";
+import { noteProps } from "../../pages/notes";
 
 type EditorProps = {
-  findCurrentNote: any;
-  updateNote: any;
-  isSubmit: any;
-  setIsSubmit: any;
+  findCurrentNote: () => noteProps;
+  updateNote: (text: string, type: string) => void;
+  isSubmit: boolean;
+  setIsSubmit: (isSubmit: boolean) => void;
 };
 
 const Editor = ({
