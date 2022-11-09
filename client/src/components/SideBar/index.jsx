@@ -6,9 +6,9 @@ const SideBar = ({
   createNewNote,
   findCurrentNote,
   setCurrentNoteId,
-  setCurrentNoteTitle,
-  currentNoteTitle,
   updateNote,
+  isSubmit,
+  setIsSubmit,
 }) => {
   const notesElements = notes.map((note) => {
     return (
@@ -17,9 +17,9 @@ const SideBar = ({
           note={note}
           findCurrentNote={findCurrentNote}
           setCurrentNoteId={setCurrentNoteId}
-          setCurrentNoteTitle={setCurrentNoteTitle}
-          currentNoteTitle={currentNoteTitle}
           updateNote={updateNote}
+          isSubmit={isSubmit}
+          setIsSubmit={setIsSubmit}
         />
       </li>
     );

@@ -4,7 +4,7 @@ import Showdown from "showdown";
 
 import "./style.css";
 
-const Editor = ({ findCurrentNote, updateNote }) => {
+const Editor = ({ findCurrentNote, updateNote, isSubmit, setIsSubmit }) => {
   const [selectedTab, setSelectedTab] = useState("write");
   const converter = new Showdown.Converter({
     tables: true,
@@ -45,9 +45,26 @@ const Editor = ({ findCurrentNote, updateNote }) => {
               type="text"
               onChange={(event) => updateNote(event.target.value, "title")}
               value={currentNote.title || ""}
+              disabled={isSubmit ? true : false}
             />
 
-            <input type="submit" />
+            {isSubmit ? (
+              <input
+                type="button"
+                onClick={() => {
+                  setIsSubmit(false);
+                }}
+                value="edit"
+              />
+            ) : (
+              <input
+                type="submit"
+                onClick={() => {
+                  setIsSubmit(true);
+                }}
+                value="save"
+              />
+            )}
           </form>
 
           <table>

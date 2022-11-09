@@ -1,7 +1,14 @@
 .note {
+<<<<<<< HEAD
   background-color: var(--lightGray);
   padding: 1em;
   opacity: 0.55;
+=======
+    background-color: var(--lightGray);
+    padding: 1em;
+    opacity: 0.55;
+    border-radius: 4px;
+>>>>>>> 46f159d (fix: sync live editing with editor)
 }
 
 .note:hover {
@@ -16,6 +23,7 @@
 }
 
 .note form {
+<<<<<<< HEAD
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -58,6 +66,31 @@
   }
 }
 
+=======
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.note form input {
+    all: unset;
+    cursor: pointer;
+}
+
+.note form input[type="text"]:disabled {
+    animation-name: none;
+}
+
+.note form input[type="text"] {
+    all: unset;
+    font-weight: 500;
+    margin: 10px 0px 0px 0px;
+    animation-name: snipper;
+    animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+}
+>>>>>>> 46f159d (fix: sync live editing with editor)
 .selected-note {
   background-color: var(--black);
   color: var(--white);
@@ -66,4 +99,17 @@
 
 .selected-note small {
   color: var(--white);
+}
+
+/* keyframe editing state */
+@keyframes snipper {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

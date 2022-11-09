@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 95c5e20 (fix: add edit and save button to frontend (sidebar note))
 import { useRef, useState } from "react";
@@ -19,6 +20,18 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
 >>>>>>> 4ef6b0f (fix: make edits live-time in note and editor title)
 =======
 >>>>>>> 95c5e20 (fix: add edit and save button to frontend (sidebar note))
+=======
+import "./style.css";
+
+const Note = ({
+  note,
+  setCurrentNoteId,
+  findCurrentNote,
+  updateNote,
+  isSubmit,
+  setIsSubmit,
+}) => {
+>>>>>>> 46f159d (fix: sync live editing with editor)
   return (
     <>
       <div
@@ -57,6 +70,7 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
             }}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             ref={titleInput}
             value={note.title || ""}
             disabled
@@ -68,6 +82,10 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
             value={note.title || ""}
             disabled
 >>>>>>> 95c5e20 (fix: add edit and save button to frontend (sidebar note))
+=======
+            value={note.title || ""}
+            disabled={isSubmit ? true : false}
+>>>>>>> 46f159d (fix: sync live editing with editor)
           />
 
           {isSubmit ? (
@@ -78,7 +96,6 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
 >>>>>>> 95c5e20 (fix: add edit and save button to frontend (sidebar note))
               type="button"
               onClick={() => {
-                titleInput.current.removeAttribute("disabled", "");
                 setIsSubmit(false);
               }}
               value="edit"
@@ -87,7 +104,6 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
             <input
               type="submit"
               onClick={() => {
-                titleInput.current.setAttribute("disabled", "");
                 setIsSubmit(true);
               }}
               value="save"
@@ -98,7 +114,6 @@ const Note = ({ note, setCurrentNoteId, findCurrentNote, updateNote }) => {
           <input
             type="button"
             onClick={() => {
-              titleInput.current.removeAttribute("disabled", "");
               setIsSubmit(false);
             }}
             value="delete"
