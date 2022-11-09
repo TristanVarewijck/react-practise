@@ -4,6 +4,7 @@ import { nanoid } from "nanoid";
 import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
 import { parseDate } from "../utils/parseDate";
+import React from "react";
 
 type noteProps = {
   id: string;
@@ -14,7 +15,7 @@ type noteProps = {
 
 const Notes = (): JSX.Element => {
   const [isSubmit, setIsSubmit] = useState<boolean>(true);
-  const [notes, setNotes] = useState<noteProps[]>();
+  const [notes, setNotes] = useState<noteProps[]>([]);
   const [currentNoteId, setCurrentNoteId] = useState<string>(
     (notes[0] && notes[0].id) || ""
   );
