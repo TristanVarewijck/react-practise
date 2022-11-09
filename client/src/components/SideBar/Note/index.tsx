@@ -1,30 +1,24 @@
 import "./style.css";
+import { noteProps } from "../../../pages/notes";
 import React from "react";
 
-interface NoteProps {
-  note: NoteProp;
-  findCurrentNote: any;
-  setCurrentNoteId: any;
-  updateNote: any;
+interface NoteElementProps {
+  note: noteProps;
+  findCurrentNote: () => noteProps;
+  setCurrentNoteId: (id: string) => void;
+  updateNote: (text: string, type: string) => void;
   isSubmit: boolean;
-  setIsSubmit: any;
+  setIsSubmit: (isSubmit: boolean) => void;
 }
 
-type NoteProp = {
-  readonly id: string;
-  title?: string;
-  body?: string;
-  date: string;
-};
-
-const Note = ({
+const NoteElement = ({
   note,
   setCurrentNoteId,
   findCurrentNote,
   updateNote,
   isSubmit,
   setIsSubmit,
-}: NoteProps): JSX.Element => {
+}: NoteElementProps): JSX.Element => {
   return (
     <>
       <div
@@ -34,55 +28,72 @@ const Note = ({
         onClick={() => setCurrentNoteId(note.id)}
       >
         <small>{note.date}</small>
-        <form
-          onSubmit={(event): void => {
-            event.preventDefault();
 
-            // store to localStorage
-            // localStorage.setItem();
-          }}
-        >
-          <input
-            name="title"
-            style={{ display: "block", width: "100%" }}
-            className="title-input"
-            type="text"
-            onChange={(event): void => {
-              updateNote(event.target.value, "title");
+        {note.id === findCurrentNote().id ? (
+          <form
+            onSubmit={(event): void => {
+              event.preventDefault();
+
+              // store to localStorage
+              // localStorage.setItem();
             }}
-            value={note.title || ""}
-            disabled={isSubmit ? true : false}
-          />
+          >
+            <input
+              name="title"
+              style={{ display: "block", width: "100%" }}
+              className="title-input"
+              type="text"
+              onChange={(event): void => {
+                updateNote(event.target.value, "title");
+              }}
+              value={note.title || ""}
+              disabled={isSubmit ? true : false}
+            />
 
-          {isSubmit ? (
+            {isSubmit ? (
+              <input
+                type="button"
+                onClick={(): void => {
+                  setIsSubmit(false);
+                }}
+                value="edit"
+              />
+            ) : (
+              <input
+                type="submit"
+                onClick={(): void => {
+                  setIsSubmit(true);
+                }}
+                value="save"
+              />
+            )}
+
             <input
               type="button"
               onClick={(): void => {
                 setIsSubmit(false);
               }}
-              value="edit"
+              value="delete"
             />
-          ) : (
+          </form>
+        ) : (
+          <form>
             <input
-              type="submit"
-              onClick={(): void => {
-                setIsSubmit(true);
+              name="title"
+              style={{ display: "block", width: "100%" }}
+              className="title-input"
+              type="text"
+              onChange={(event): void => {
+                updateNote(event.target.value, "title");
               }}
-              value="save"
+              value={note.title || ""}
+              disabled
             />
-          )}
-
-          <input
-            type="button"
-            onClick={(): void => {
-              setIsSubmit(false);
-            }}
-            value="delete"
-          />
-        </form>
+          </form>
+        )}
       </div>
     </>
   );
 };
 
-export default Note;
+export default NoteElement;

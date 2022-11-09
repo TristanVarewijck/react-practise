@@ -6,7 +6,7 @@ import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
 import { parseDate } from "../utils/parseDate";
 
-type noteProps = {
+export type noteProps = {
   readonly id: string;
   body?: string;
   title?: string;
