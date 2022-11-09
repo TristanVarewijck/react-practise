@@ -24,7 +24,7 @@ const SideBar = ({
   isSubmit,
   setIsSubmit,
 }: sideBarProps): JSX.Element => {
-  const notesElements = notes.map((note: any) => {
+  const notesElements = notes.map((note) => {
     return (
       <li key={note.id}>
         <Note
