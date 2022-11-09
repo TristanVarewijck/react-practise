@@ -6,8 +6,6 @@ const SideBar = ({
   createNewNote,
   findCurrentNote,
   setCurrentNoteId,
-  setCurrentNoteTitle,
-  currentNoteTitle,
   updateNote,
 }) => {
   const notesElements = notes.map((note) => {
@@ -17,8 +15,6 @@ const SideBar = ({
           note={note}
           findCurrentNote={findCurrentNote}
           setCurrentNoteId={setCurrentNoteId}
-          setCurrentNoteTitle={setCurrentNoteTitle}
-          currentNoteTitle={currentNoteTitle}
           updateNote={updateNote}
         />
       </li>

@@ -1,52 +1,52 @@
 .editor {
-    padding: 1.2em;
-    height: 100vh;
+  padding: 1.2em;
+  height: 100vh;
 }
 
 .title-input {
-    all: unset;
-    font-size: 52px;
-    border: none;
-    font-weight: 600;
+  all: unset;
+  font-size: 52px;
+  border: none;
+  font-weight: 600;
 }
 
 .react-mde {
-    border: none;
-    border-radius: 2px;
+  border: none;
+  border-radius: 2px;
 }
 
 .mde-header {
-    border-top: 2.5px solid var(--lightGray);
-    border-bottom: 2.5px solid var(--lightGray);
-    background: none;
-    padding: 1em;
+  border-top: 2.5px solid var(--lightGray);
+  border-bottom: 2.5px solid var(--lightGray);
+  background: none;
+  padding: 1em;
 }
 
 .breadCrump {
-    font-weight: 400;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: solid 2.5px var(--lightGray);
-    margin-bottom: 50px;
+  font-weight: 400;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 2.5px var(--lightGray);
+  margin-bottom: 50px;
 }
 
 .breadCrump ul {
-    display: flex;
-    list-style-type: none;
-    align-items: center;
-    gap: 15px;
-    padding: 0px;
+  display: flex;
+  list-style-type: none;
+  align-items: center;
+  gap: 15px;
+  padding: 0px;
 }
 
 .breadCrump button {
-    background: none;
-    display: flex;
-    align-items: center;
-    height: 50px;
+  background: none;
+  display: flex;
+  align-items: center;
+  height: 50px;
 }
 
 .heading {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
