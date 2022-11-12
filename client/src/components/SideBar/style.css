@@ -11,6 +11,70 @@
     gap: 15px;
 }
 
+.sidebar ul li .note {
+    background-color: var(--lightGray);
+    padding: 1em;
+    opacity: 0.55;
+    border-radius: 4px;
+}
+
+.sidebar ul li .note :hover {
+    opacity: 1;
+}
+
+.sidebar ul li .note small {
+    color: var(--darkGray);
+    font-weight: 500;
+    opacity: 0.72;
+    font-size: 12.5px;
+}
+
+.sidebar ul li .note form {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.sidebar ul li .note form input {
+    all: unset;
+    cursor: pointer;
+}
+
+.sidebar ul li .note form {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.sidebar ul li .note form input {
+    all: unset;
+    cursor: pointer;
+}
+
+.sidebar ul li .note form input[type="text"]:disabled {
+    animation-name: none;
+}
+
+.sidebar ul li .note form input[type="text"] {
+    all: unset;
+    font-weight: 500;
+    margin: 10px 0px 0px 0px;
+    animation-name: snipper;
+    animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+}
+.sidebar ul li .selected-note {
+    background-color: var(--black);
+    color: var(--white);
+    opacity: 1;
+}
+
+.sidebar ul li .selected-note small {
+    color: var(--white);
+}
+
 .sidebar h1 {
     font-weight: 400;
 }
@@ -32,4 +96,16 @@
 .sidebar button img {
     width: 15px;
     height: auto;
+}
+
+@keyframes snipper {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

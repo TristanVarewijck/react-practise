@@ -4,17 +4,20 @@ import Showdown from "showdown";
 import "./style.css";
 import React from "react";
 import { noteProps } from "../../pages/notes";
+import { findCurrentNote } from "../../utils/noteActions.util";
 
 type EditorProps = {
-  findCurrentNote: () => noteProps;
+  notes: noteProps[];
   updateNote: (text: string, type: string) => void;
+  currentNoteId: string;
   isSubmit: boolean;
   setIsSubmit: (isSubmit: boolean) => void;
 };
 
 const Editor = ({
-  findCurrentNote,
+  notes,
   updateNote,
+  currentNoteId,
   isSubmit,
   setIsSubmit,
 }: EditorProps): JSX.Element => {
@@ -25,7 +28,8 @@ const Editor = ({
     strikethrough: true,
     tasklists: true,
   });
-  const currentNote = findCurrentNote();
+
+  const currentNote = findCurrentNote(notes, currentNoteId);
 
   return (
     <>
@@ -47,8 +51,6 @@ const Editor = ({
           <form
             onSubmit={(e) => {
               e.preventDefault();
-
-              // store to LocalStorage
             }}
           >
             <input
