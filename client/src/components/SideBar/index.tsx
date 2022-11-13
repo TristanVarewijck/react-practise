@@ -1,7 +1,7 @@
 import "./style.css";
 import { noteProps } from "../../pages/notes";
 import React from "react";
-import { createNewNote, updateNote } from "../../utils/noteActions.util";
+import { createNewNote } from "../../utils/noteActions.util";
 import NoteInputTitle from "../NoteInputTitle";
 
 export interface sideBarProps {
@@ -34,12 +34,13 @@ const SideBar = ({
             <NoteInputTitle
               notes={notes}
               currentNoteId={currentNoteId}
+              setCurrentNoteId={setCurrentNoteId}
               isSubmit={isSubmit}
               setNotes={setNotes}
               setIsSubmit={setIsSubmit}
             />
           ) : (
-            <h6>{note.title}</h6>
+            <h3>{note.title}</h3>
           )}
         </div>
       </li>

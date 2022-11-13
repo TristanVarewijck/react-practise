@@ -1,10 +1,15 @@
 import React from "react";
 import "./style.css";
-import { updateNote, findCurrentNote } from "../../utils/noteActions.util";
+import {
+  updateNote,
+  findCurrentNote,
+  deleteNote,
+} from "../../utils/noteActions.util";
 
 interface NoteInputTitleProps {
   notes: any;
   currentNoteId: any;
+  setCurrentNoteId: any;
   isSubmit: any;
   setNotes: any;
   setIsSubmit: any;
@@ -18,6 +23,8 @@ const NoteInputTitle = ({
   setIsSubmit,
 }: NoteInputTitleProps): JSX.Element => {
   const currentNote = findCurrentNote(notes, currentNoteId);
+
+  console.log(currentNote);
   return (
     <>
       <form
@@ -65,7 +72,8 @@ const NoteInputTitle = ({
         <input
           type="button"
           onClick={(): void => {
-            setIsSubmit(false);
+            const newArray = deleteNote(notes, currentNoteId);
+            setNotes([...newArray]);
           }}
           value="delete"
         />

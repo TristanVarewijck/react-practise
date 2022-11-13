@@ -10,6 +10,7 @@ import { findCurrentNote, updateNote } from "../../utils/noteActions.util";
 type EditorProps = {
   notes: noteProps[];
   currentNoteId: string;
+  setCurrentNoteId: any;
   isSubmit: boolean;
   setNotes: (notes: noteProps[]) => void;
   setIsSubmit: (isSubmit: boolean) => void;
@@ -19,6 +20,7 @@ const Editor = ({
   notes,
   setNotes,
   currentNoteId,
+  setCurrentNoteId,
   isSubmit,
   setIsSubmit,
 }: EditorProps): JSX.Element => {
@@ -30,6 +32,7 @@ const Editor = ({
     tasklists: true,
   });
   const currentNote = findCurrentNote(notes, currentNoteId);
+  setCurrentNoteId(currentNote.id);
 
   return (
     <>
@@ -51,6 +54,7 @@ const Editor = ({
           <NoteInputTitle
             notes={notes}
             currentNoteId={currentNoteId}
+            setCurrentNoteId={setCurrentNoteId}
             isSubmit={isSubmit}
             setNotes={setNotes}
             setIsSubmit={setIsSubmit}

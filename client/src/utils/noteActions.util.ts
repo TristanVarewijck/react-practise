@@ -43,3 +43,8 @@ export const updateNote = (
     }
   });
 };
+
+export const deleteNote = (notes: noteProps[], currentNoteId: string) => {
+  const newArray = notes.filter((note) => note.id != currentNoteId);
+  return newArray;
+};
