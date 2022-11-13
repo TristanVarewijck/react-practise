@@ -23,22 +23,23 @@ export const findCurrentNote = (
   );
 };
 
-// export const updateNote = (
-//   text: string,
-//   type: string,
-//   notes: noteProps[]
-// ): noteProps[] => {
-//   return notes.map((note: noteProps) => {
-//     if (note.id === currentNoteId && type === "mde") {
-//       return { ...note, body: text, date: parseDate(new Date()) };
-//     } else if (note.id === currentNoteId && type === "title") {
-//       return {
-//         ...note,
-//         title: text,
-//         date: parseDate(new Date()),
-//       };
-//     } else {
-//       return note;
-//     }
-//   });
-// };
+export const updateNote = (
+  currentNoteId: string,
+  text: string,
+  type: string,
+  notes: noteProps[]
+): noteProps[] => {
+  return notes.map((note: noteProps) => {
+    if (note.id === currentNoteId && type === "mde") {
+      return { ...note, body: text, date: parseDate(new Date()) };
+    } else if (note.id === currentNoteId && type === "title") {
+      return {
+        ...note,
+        title: text,
+        date: parseDate(new Date()),
+      };
+    } else {
+      return note;
+    }
+  });
+};

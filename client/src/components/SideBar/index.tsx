@@ -1,14 +1,14 @@
 import "./style.css";
 import { noteProps } from "../../pages/notes";
 import React from "react";
-import { createNewNote } from "../../utils/noteActions.util";
+import { createNewNote, updateNote } from "../../utils/noteActions.util";
+import NoteInputTitle from "../NoteInputTitle";
 
 export interface sideBarProps {
   notes: noteProps[];
   setNotes: (notes: noteProps[]) => void;
   setCurrentNoteId: (id: string) => void;
   currentNoteId: string;
-  updateNote: (text: string, type: string) => void;
   setIsSubmit: (isSubmit: boolean) => void;
   isSubmit: boolean;
 }
@@ -19,7 +19,6 @@ const SideBar = ({
   setNotes,
   setCurrentNoteId,
   currentNoteId,
-  updateNote,
   isSubmit,
   setIsSubmit,
 }: sideBarProps): JSX.Element => {
@@ -32,60 +31,15 @@ const SideBar = ({
         >
           <small>{note.date}</small>
           {note.id === currentNoteId ? (
-            <form
-              onSubmit={(event): void => {
-                event.preventDefault();
-              }}
-            >
-              <input
-                name="title"
-                style={{ display: "block", width: "100%" }}
-                className="title-input"
-                type="text"
-                onChange={(event): void => {
-                  updateNote(event.target.value, "title");
-                }}
-                value={note.title || ""}
-                disabled={isSubmit ? true : false}
-              />
-
-              {isSubmit ? (
-                <input
-                  type="button"
-                  onClick={(): void => {
-                    setIsSubmit(false);
-                  }}
-                  value="edit"
-                />
-              ) : (
-                <input
-                  type="submit"
-                  onClick={(): void => {
-                    setIsSubmit(true);
-                  }}
-                  value="save"
-                />
-              )}
-
-              <input
-                type="button"
-                onClick={(): void => {
-                  setIsSubmit(false);
-                }}
-                value="delete"
-              />
-            </form>
+            <NoteInputTitle
+              notes={notes}
+              currentNoteId={currentNoteId}
+              isSubmit={isSubmit}
+              setNotes={setNotes}
+              setIsSubmit={setIsSubmit}
+            />
           ) : (
-            <form>
-              <input
-                name="title"
-                style={{ display: "block", width: "100%" }}
-                className="title-input"
-                type="text"
-                value={note.title || ""}
-                disabled
-              />
-            </form>
+            <h6>{note.title}</h6>
           )}
         </div>
       </li>

@@ -4,7 +4,6 @@ import Split from "react-split";
 import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
 import { createNewNote } from "../utils/noteActions.util";
-import { parseDate } from "../utils/parseDate.util";
 
 export type noteProps = {
   readonly id: string;
@@ -20,24 +19,6 @@ const Notes = (): JSX.Element => {
     (notes[0] && notes[0].id) || ""
   );
 
-  const updateNote = (text: string, type: string): void => {
-    setNotes((oldNotes: noteProps[]): noteProps[] => {
-      return oldNotes.map((oldNote: noteProps) => {
-        if (oldNote.id === currentNoteId && type === "mde") {
-          return { ...oldNote, body: text, date: parseDate(new Date()) };
-        } else if (oldNote.id === currentNoteId && type === "title") {
-          return {
-            ...oldNote,
-            title: text,
-            date: parseDate(new Date()),
-          };
-        } else {
-          return oldNote;
-        }
-      });
-    });
-  };
-
   return (
     <>
       {notes.length > 0 ? (
@@ -47,13 +28,12 @@ const Notes = (): JSX.Element => {
             setNotes={setNotes}
             setCurrentNoteId={setCurrentNoteId}
             currentNoteId={currentNoteId}
-            updateNote={updateNote}
             setIsSubmit={setIsSubmit}
             isSubmit={isSubmit}
           />
           <Editor
             notes={notes}
-            updateNote={updateNote}
+            setNotes={setNotes}
             currentNoteId={currentNoteId}
             setIsSubmit={setIsSubmit}
             isSubmit={isSubmit}

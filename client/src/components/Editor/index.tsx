@@ -4,19 +4,20 @@ import Showdown from "showdown";
 import "./style.css";
 import React from "react";
 import { noteProps } from "../../pages/notes";
-import { findCurrentNote } from "../../utils/noteActions.util";
+import NoteInputTitle from "../NoteInputTitle";
+import { findCurrentNote, updateNote } from "../../utils/noteActions.util";
 
 type EditorProps = {
   notes: noteProps[];
-  updateNote: (text: string, type: string) => void;
   currentNoteId: string;
   isSubmit: boolean;
+  setNotes: (notes: noteProps[]) => void;
   setIsSubmit: (isSubmit: boolean) => void;
 };
 
 const Editor = ({
   notes,
-  updateNote,
+  setNotes,
   currentNoteId,
   isSubmit,
   setIsSubmit,
@@ -28,7 +29,6 @@ const Editor = ({
     strikethrough: true,
     tasklists: true,
   });
-
   const currentNote = findCurrentNote(notes, currentNoteId);
 
   return (
@@ -48,40 +48,13 @@ const Editor = ({
         </div>
 
         <div className="heading">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-            }}
-          >
-            <input
-              name="title"
-              style={{ display: "block" }}
-              className="title-input"
-              type="text"
-              onChange={(event) => updateNote(event.target.value, "title")}
-              value={currentNote.title || ""}
-              disabled={isSubmit ? true : false}
-            />
-
-            {isSubmit ? (
-              <input
-                type="button"
-                onClick={() => {
-                  setIsSubmit(false);
-                }}
-                value="edit"
-              />
-            ) : (
-              <input
-                type="submit"
-                onClick={() => {
-                  setIsSubmit(true);
-                }}
-                value="save"
-              />
-            )}
-          </form>
-
+          <NoteInputTitle
+            notes={notes}
+            currentNoteId={currentNoteId}
+            isSubmit={isSubmit}
+            setNotes={setNotes}
+            setIsSubmit={setIsSubmit}
+          />
           <table>
             <tbody>
               <tr>
@@ -102,7 +75,10 @@ const Editor = ({
 
         <ReactMde
           value={currentNote.body}
-          onChange={(text: string) => updateNote(text, "mde")}
+          onChange={(text: string) => {
+            const updatedNotes = updateNote(currentNoteId, text, "mde", notes);
+            setNotes([...updatedNotes]);
+          }}
           selectedTab={selectedTab}
           onTabChange={setSelectedTab}
           generateMarkdownPreview={(markdown: string) =>
