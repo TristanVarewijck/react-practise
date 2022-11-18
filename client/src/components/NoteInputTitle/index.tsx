@@ -79,12 +79,13 @@ const NoteInputTitle = ({
             e.stopPropagation();
             const newNotes = deleteNote(notes, currentNoteId);
             setNotes([...newNotes]);
-            if (newNotes.length >= 1) {
-              setCurrentNoteId(
-                newNotes[currentNoteIndex - 1]
-                  ? newNotes[currentNoteIndex - 1].id
-                  : notes[0].id
-              );
+
+            if (newNotes.length >= 1 && currentNoteIndex === 0) {
+              setCurrentNoteId(newNotes[0].id);
+            } else if (newNotes.length >= 1 && currentNoteIndex !== 0) {
+              setCurrentNoteId(newNotes[currentNoteIndex - 1].id);
+            } else {
+              setCurrentNoteId("");
             }
           }}
           value="delete"

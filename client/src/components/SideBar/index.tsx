@@ -47,11 +47,6 @@ const SideBar = ({
     );
   });
 
-  // li
-  //   div
-  //     container onclick()
-  //     title onclick()
-
   return (
     <>
       <div className="sidebar">
