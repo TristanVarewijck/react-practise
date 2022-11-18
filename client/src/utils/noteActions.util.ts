@@ -16,11 +16,8 @@ export const findCurrentNote = (
   notes: noteProps[],
   currentNoteId: string
 ): noteProps => {
-  return (
-    notes.find((note) => {
-      return note.id === currentNoteId;
-    }) || notes[0]
-  );
+  const currentNote = notes.find((note) => note.id === currentNoteId);
+  return currentNote ? currentNote : notes[0];
 };
 
 export const updateNote = (
@@ -45,6 +42,6 @@ export const updateNote = (
 };
 
 export const deleteNote = (notes: noteProps[], currentNoteId: string) => {
-  const newArray = notes.filter((note) => note.id != currentNoteId);
+  const newArray = notes.filter((note) => note.id !== currentNoteId);
   return newArray;
 };

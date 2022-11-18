@@ -3,7 +3,7 @@ import { useState } from "react";
 import Split from "react-split";
 import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
-import { createNewNote, deleteNote } from "../utils/noteActions.util";
+import { createNewNote } from "../utils/noteActions.util";
 
 export type noteProps = {
   readonly id: string;
@@ -15,9 +15,9 @@ export type noteProps = {
 const Notes = (): JSX.Element => {
   const [isSubmit, setIsSubmit] = useState<boolean>(true);
   const [notes, setNotes] = useState<noteProps[]>([]);
-  const [currentNoteId, setCurrentNoteId] = useState<string>(
-    (notes[0] && notes[0].id) || ""
-  );
+  const [currentNoteId, setCurrentNoteId] = useState<string>("");
+
+  console.log(currentNoteId);
 
   return (
     <>

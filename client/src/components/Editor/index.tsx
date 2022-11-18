@@ -32,7 +32,6 @@ const Editor = ({
     tasklists: true,
   });
   const currentNote = findCurrentNote(notes, currentNoteId);
-  setCurrentNoteId(currentNote.id);
 
   return (
     <>

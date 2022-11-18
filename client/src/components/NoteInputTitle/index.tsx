@@ -5,11 +5,12 @@ import {
   findCurrentNote,
   deleteNote,
 } from "../../utils/noteActions.util";
+import { noteProps } from "../../pages/notes";
 
 interface NoteInputTitleProps {
   notes: any;
   currentNoteId: any;
-  setCurrentNoteId: any;
+  setCurrentNoteId: (id: string) => void;
   isSubmit: any;
   setNotes: any;
   setIsSubmit: any;
@@ -18,13 +19,16 @@ interface NoteInputTitleProps {
 const NoteInputTitle = ({
   notes,
   currentNoteId,
+  setCurrentNoteId,
   isSubmit,
   setNotes,
   setIsSubmit,
 }: NoteInputTitleProps): JSX.Element => {
   const currentNote = findCurrentNote(notes, currentNoteId);
+  const currentNoteIndex = notes.findIndex(
+    (note: noteProps) => note.id === currentNoteId
+  );
 
-  console.log(currentNote);
   return (
     <>
       <form
@@ -71,9 +75,17 @@ const NoteInputTitle = ({
 
         <input
           type="button"
-          onClick={(): void => {
-            const newArray = deleteNote(notes, currentNoteId);
-            setNotes([...newArray]);
+          onClick={(e): void => {
+            e.stopPropagation();
+            const newNotes = deleteNote(notes, currentNoteId);
+            setNotes([...newNotes]);
+            if (newNotes.length >= 1) {
+              setCurrentNoteId(
+                newNotes[currentNoteIndex - 1]
+                  ? newNotes[currentNoteIndex - 1].id
+                  : notes[0].id
+              );
+            }
           }}
           value="delete"
         />
