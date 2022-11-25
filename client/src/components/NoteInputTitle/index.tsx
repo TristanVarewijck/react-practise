@@ -77,15 +77,20 @@ const NoteInputTitle = ({
           type="button"
           onClick={(e): void => {
             e.stopPropagation();
-            const newNotes = deleteNote(notes, currentNoteId);
-            setNotes([...newNotes]);
-
-            if (newNotes.length >= 1 && currentNoteIndex === 0) {
-              setCurrentNoteId(newNotes[0].id);
-            } else if (newNotes.length >= 1 && currentNoteIndex !== 0) {
-              setCurrentNoteId(newNotes[currentNoteIndex - 1].id);
-            } else {
-              setCurrentNoteId("");
+            if (
+              window.confirm(
+                `Are you sure you want to delete this note?: ${currentNote.title}`
+              )
+            ) {
+              const newNotes = deleteNote(notes, currentNoteId);
+              setNotes([...newNotes]);
+              if (newNotes.length >= 1 && currentNoteIndex === 0) {
+                setCurrentNoteId(newNotes[0].id);
+              } else if (newNotes.length >= 1 && currentNoteIndex !== 0) {
+                setCurrentNoteId(newNotes[currentNoteIndex - 1].id);
+              } else {
+                setCurrentNoteId("");
+              }
             }
           }}
           value="delete"
