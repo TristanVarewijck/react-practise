@@ -6,6 +6,7 @@ import React from "react";
 import { noteProps } from "../../pages/notes";
 import NoteInputTitle from "../NoteInputTitle";
 import { findCurrentNote, updateNote } from "../../utils/noteActions.util";
+import {differenceBetweenTimestamps} from "../../utils/timestampActions.util";
 
 type EditorProps = {
   notes: noteProps[];
@@ -31,8 +32,8 @@ const Editor = ({
     strikethrough: true,
     tasklists: true,
   });
-  const currentNote = findCurrentNote(notes, currentNoteId);
 
+  const currentNote = findCurrentNote(notes, currentNoteId);
   return (
     <>
       <div className="editor">
@@ -58,6 +59,7 @@ const Editor = ({
             setNotes={setNotes}
             setIsSubmit={setIsSubmit}
           />
+          <small>{currentNote.title}</small>
           <table>
             <tbody>
               <tr>
@@ -70,7 +72,7 @@ const Editor = ({
                 >
                   Last modified:
                 </th>
-                <td>{currentNote.date}</td>
+                <td>{differenceBetweenTimestamps(currentNote.date)}</td>
               </tr>
             </tbody>
           </table>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css";
 import {
   updateNote,
@@ -28,7 +28,33 @@ const NoteInputTitle = ({
   const currentNoteIndex = notes.findIndex(
     (note: noteProps) => note.id === currentNoteId
   );
+  const [newTitle, setNewTitle] = useState<string>(currentNote.title || "");
+  const handleDelete = (e: any) => {
+    e.stopPropagation();
+        if (
+          window.confirm(
+            `Are you sure you want to delete this note?: ${currentNote.title}`
+          )
+        ) {
+          const newNotes = deleteNote(notes, currentNoteId);
+          setNotes([...newNotes]);
+          if (newNotes.length >= 1 && currentNoteIndex === 0) {
+            setCurrentNoteId(newNotes[0].id);
+          } else if (newNotes.length >= 1 && currentNoteIndex !== newNotes.length) {
+            setCurrentNoteId(newNotes[currentNoteIndex].id)
+          } else if (currentNoteIndex === newNotes.length){
+            setCurrentNoteId(newNotes[newNotes.length - 1].id);
+          } else {
+            setCurrentNoteId("");
+          }
+        }
+  }
 
+  const handleTitleChange = (e: any) => {
+    let input = e.target.value;
+    setNewTitle(input);
+  }
+  
   return (
     <>
       <form
@@ -41,17 +67,8 @@ const NoteInputTitle = ({
           style={{ display: "block", width: "100%" }}
           className="title-input"
           type="text"
-          onChange={(event): void => {
-            let input = event.target.value;
-            const updatedNotes = updateNote(
-              currentNoteId,
-              input,
-              "title",
-              notes
-            );
-            setNotes([...updatedNotes]);
-          }}
-          value={currentNote.title || ""}
+          onChange={handleTitleChange}
+          value={newTitle}
           disabled={isSubmit ? true : false}
         />
 
@@ -67,7 +84,11 @@ const NoteInputTitle = ({
           <input
             type="submit"
             onClick={(): void => {
-              setIsSubmit(true);
+              if(newTitle !== currentNote.title) {
+                const updatedNotes = updateNote(currentNoteId, newTitle, "title", notes);
+                setNotes([...updatedNotes]);
+              }
+            setIsSubmit(true);
             }}
             value="save"
           />
@@ -75,27 +96,11 @@ const NoteInputTitle = ({
 
         <input
           type="button"
-          onClick={(e): void => {
-            e.stopPropagation();
-            if (
-              window.confirm(
-                `Are you sure you want to delete this note?: ${currentNote.title}`
-              )
-            ) {
-              const newNotes = deleteNote(notes, currentNoteId);
-              setNotes([...newNotes]);
-              if (newNotes.length >= 1 && currentNoteIndex === 0) {
-                setCurrentNoteId(newNotes[0].id);
-              } else if (newNotes.length >= 1 && currentNoteIndex !== 0) {
-                setCurrentNoteId(newNotes[currentNoteIndex - 1].id);
-              } else {
-                setCurrentNoteId("");
-              }
-            }
-          }}
+          onClick={handleDelete}
           value="delete"
         />
       </form>
+
     </>
   );
 };

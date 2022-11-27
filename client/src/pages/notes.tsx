@@ -9,13 +9,17 @@ export type noteProps = {
   readonly id: string;
   body?: string;
   title?: string;
-  date: string;
+  date: number;
 };
 
 const Notes = (): JSX.Element => {
   const [isSubmit, setIsSubmit] = useState<boolean>(true);
   const [notes, setNotes] = useState<noteProps[]>([]);
   const [currentNoteId, setCurrentNoteId] = useState<string>("");
+
+
+
+  
   return (
     <>
       {notes.length > 0 ? (

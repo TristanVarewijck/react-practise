@@ -3,6 +3,7 @@ import { noteProps } from "../../pages/notes";
 import React from "react";
 import { createNewNote } from "../../utils/noteActions.util";
 import NoteInputTitle from "../NoteInputTitle";
+import { differenceBetweenTimestamps, sortNotesByTimestamp } from "../../utils/timestampActions.util";
 
 export interface sideBarProps {
   notes: noteProps[];
@@ -22,14 +23,15 @@ const SideBar = ({
   isSubmit,
   setIsSubmit,
 }: sideBarProps): JSX.Element => {
-  const notesElements = notes.map((note) => {
+  const sortedNotes = sortNotesByTimestamp(notes);
+  const notesElements = sortedNotes.map((note) => {
     return (
       <li key={note.id}>
         <div
           className={`note ${note.id === currentNoteId ? "selected-note" : ""}`}
           onClick={() => setCurrentNoteId(note.id)}
         >
-          <small>{note.date}</small>
+          <small>{differenceBetweenTimestamps(note.date)}</small>
           {note.id === currentNoteId ? (
             <NoteInputTitle
               notes={notes}

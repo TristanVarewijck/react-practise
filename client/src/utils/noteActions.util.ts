@@ -1,5 +1,4 @@
 import { nanoid } from "nanoid";
-import { parseDate } from "./parseDate.util";
 import { noteProps } from "../pages/notes";
 
 export const createNewNote = (): noteProps => {
@@ -7,7 +6,7 @@ export const createNewNote = (): noteProps => {
     id: nanoid(),
     body: "# Type your markdown note's title here",
     title: "New Note",
-    date: parseDate(new Date()),
+    date: Date.now(),
   };
   return newNote;
 };
@@ -28,12 +27,12 @@ export const updateNote = (
 ): noteProps[] => {
   return notes.map((note: noteProps) => {
     if (note.id === currentNoteId && type === "mde") {
-      return { ...note, body: text, date: parseDate(new Date()) };
+      return { ...note, body: text, date: Date.now() };
     } else if (note.id === currentNoteId && type === "title") {
       return {
         ...note,
         title: text,
-        date: parseDate(new Date()),
+        date: Date.now(),
       };
     } else {
       return note;
