@@ -11,24 +11,20 @@ interface NoteInputTitleProps {
   notes: any;
   currentNoteId: any;
   setCurrentNoteId: (id: string) => void;
-  isSubmit: any;
   setNotes: any;
-  setIsSubmit: any;
 }
 
 const NoteInputTitle = ({
   notes,
   currentNoteId,
   setCurrentNoteId,
-  isSubmit,
   setNotes,
-  setIsSubmit,
 }: NoteInputTitleProps): JSX.Element => {
+  const [isLocked, setIsLocked] = useState<boolean>(true);
   const currentNote = findCurrentNote(notes, currentNoteId);
   const currentNoteIndex = notes.findIndex(
     (note: noteProps) => note.id === currentNoteId
   );
-  const [newTitle, setNewTitle] = useState<string>(currentNote.title || "");
   const handleDelete = (e: any) => {
     e.stopPropagation();
         if (
@@ -51,8 +47,9 @@ const NoteInputTitle = ({
   }
 
   const handleTitleChange = (e: any) => {
-    let input = e.target.value;
-    setNewTitle(input);
+    const newTitle = e.target.value;
+    const updatedNotes = updateNote(currentNoteId, newTitle, "title", notes);
+    setNotes([...updatedNotes]);
   }
   
   return (
@@ -60,7 +57,9 @@ const NoteInputTitle = ({
       <form
         onSubmit={(event): void => {
           event.preventDefault();
+          setIsLocked(true)
         }}
+        onDoubleClick={() => setIsLocked(false)}
       >
         <input
           name="title"
@@ -68,32 +67,14 @@ const NoteInputTitle = ({
           className="title-input"
           type="text"
           onChange={handleTitleChange}
-          value={newTitle}
-          disabled={isSubmit ? true : false}
+          value={currentNote.title}
+          disabled={isLocked}
         />
-
-        {isSubmit ? (
-          <input
-            type="button"
-            onClick={(): void => {
-              setIsSubmit(false);
-            }}
-            value="edit"
-          />
-        ) : (
-          <input
-            type="submit"
-            onClick={(): void => {
-              if(newTitle !== currentNote.title) {
-                const updatedNotes = updateNote(currentNoteId, newTitle, "title", notes);
-                setNotes([...updatedNotes]);
-              }
-            setIsSubmit(true);
-            }}
-            value="save"
-          />
-        )}
-
+        <input
+          type="button"
+          value="edit"
+          onClick={() => setIsLocked(false)}
+        />
         <input
           type="button"
           onClick={handleDelete}

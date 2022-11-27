@@ -13,12 +13,8 @@ export type noteProps = {
 };
 
 const Notes = (): JSX.Element => {
-  const [isSubmit, setIsSubmit] = useState<boolean>(true);
   const [notes, setNotes] = useState<noteProps[]>([]);
   const [currentNoteId, setCurrentNoteId] = useState<string>("");
-
-
-
   
   return (
     <>
@@ -29,16 +25,12 @@ const Notes = (): JSX.Element => {
             setNotes={setNotes}
             setCurrentNoteId={setCurrentNoteId}
             currentNoteId={currentNoteId}
-            setIsSubmit={setIsSubmit}
-            isSubmit={isSubmit}
           />
           <Editor
             notes={notes}
             setNotes={setNotes}
             currentNoteId={currentNoteId}
             setCurrentNoteId={setCurrentNoteId}
-            setIsSubmit={setIsSubmit}
-            isSubmit={isSubmit}
           />
         </Split>
       ) : (

@@ -12,9 +12,7 @@ type EditorProps = {
   notes: noteProps[];
   currentNoteId: string;
   setCurrentNoteId: any;
-  isSubmit: boolean;
   setNotes: (notes: noteProps[]) => void;
-  setIsSubmit: (isSubmit: boolean) => void;
 };
 
 const Editor = ({
@@ -22,8 +20,6 @@ const Editor = ({
   setNotes,
   currentNoteId,
   setCurrentNoteId,
-  isSubmit,
-  setIsSubmit,
 }: EditorProps): JSX.Element => {
   const [selectedTab, setSelectedTab] = useState<any>("write");
   const converter = new Showdown.Converter({
@@ -55,11 +51,8 @@ const Editor = ({
             notes={notes}
             currentNoteId={currentNoteId}
             setCurrentNoteId={setCurrentNoteId}
-            isSubmit={isSubmit}
             setNotes={setNotes}
-            setIsSubmit={setIsSubmit}
           />
-          <small>{currentNote.title}</small>
           <table>
             <tbody>
               <tr>

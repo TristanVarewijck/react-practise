@@ -10,8 +10,6 @@ export interface sideBarProps {
   setNotes: (notes: noteProps[]) => void;
   setCurrentNoteId: (id: string) => void;
   currentNoteId: string;
-  setIsSubmit: (isSubmit: boolean) => void;
-  isSubmit: boolean;
 }
 
 // setTime;
@@ -20,8 +18,6 @@ const SideBar = ({
   setNotes,
   setCurrentNoteId,
   currentNoteId,
-  isSubmit,
-  setIsSubmit,
 }: sideBarProps): JSX.Element => {
   const sortedNotes = sortNotesByTimestamp(notes);
   const notesElements = sortedNotes.map((note) => {
@@ -37,9 +33,7 @@ const SideBar = ({
               notes={notes}
               currentNoteId={currentNoteId}
               setCurrentNoteId={setCurrentNoteId}
-              isSubmit={isSubmit}
               setNotes={setNotes}
-              setIsSubmit={setIsSubmit}
             />
           ) : (
             <h3>{note.title}</h3>
