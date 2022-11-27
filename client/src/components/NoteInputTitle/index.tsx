@@ -6,6 +6,7 @@ import {
   deleteNote,
 } from "../../utils/noteActions.util";
 import { noteProps } from "../../pages/notes";
+import { Trash2, Edit3} from 'react-feather';
 
 interface NoteInputTitleProps {
   notes: any;
@@ -55,6 +56,7 @@ const NoteInputTitle = ({
   return (
     <>
       <form
+      className="note-title-form"
         onSubmit={(event): void => {
           event.preventDefault();
           setIsLocked(true)
@@ -70,16 +72,21 @@ const NoteInputTitle = ({
           value={currentNote.title}
           disabled={isLocked}
         />
-        <input
+        <button
           type="button"
           value="edit"
           onClick={() => setIsLocked(false)}
-        />
-        <input
+        ><Edit3  
+        width="18"
+        height="18"/></button>
+        <button
+          style={{marginLeft: "8px"}}
           type="button"
           onClick={handleDelete}
           value="delete"
-        />
+        ><Trash2 
+        width="18"
+        height="18"/></button>
       </form>
 
     </>

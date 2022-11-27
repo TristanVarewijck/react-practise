@@ -18,39 +18,39 @@
     border-radius: 4px;
 }
 
-.sidebar ul li .note :hover {
-    opacity: 1;
-}
-
 .sidebar ul li .note small {
     color: var(--darkGray);
     font-weight: 500;
     opacity: 0.72;
     font-size: 12.5px;
+
 }
 
 .sidebar ul li .note form {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 20px;
 }
 
-.sidebar ul li .note form input {
+.sidebar ul li .note form input{
     all: unset;
     cursor: pointer;
+
 }
 
-.sidebar ul li .note form {
+.sidebar ul li .note form button{
+    all: unset;
+    cursor: pointer;
+    color: var(--darkGray);
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 20px;
+    flex-direction: column;
+    align-items: baseline;  
 }
 
-.sidebar ul li .note form input {
-    all: unset;
-    cursor: pointer;
+.sidebar ul li .note form button:hover{
+    color: var(--white);
+    transition: 200ms linear;
+    
 }
 
 .sidebar ul li .note h3 {

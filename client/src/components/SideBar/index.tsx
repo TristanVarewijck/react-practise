@@ -4,6 +4,7 @@ import React from "react";
 import { createNewNote } from "../../utils/noteActions.util";
 import NoteInputTitle from "../NoteInputTitle";
 import { differenceBetweenTimestamps, sortNotesByTimestamp } from "../../utils/timestampActions.util";
+import { FilePlus} from 'react-feather';
 
 export interface sideBarProps {
   notes: noteProps[];
@@ -27,7 +28,7 @@ const SideBar = ({
           className={`note ${note.id === currentNoteId ? "selected-note" : ""}`}
           onClick={() => setCurrentNoteId(note.id)}
         >
-          <small>{differenceBetweenTimestamps(note.date)}</small>
+          <small>{differenceBetweenTimestamps(note.date) }</small>
           {note.id === currentNoteId ? (
             <NoteInputTitle
               notes={notes}
@@ -54,7 +55,7 @@ const SideBar = ({
             setCurrentNoteId(newNote.id);
           }}
         >
-          <img src="/assets/icons/plus-i.svg" alt="add-icon" />
+          <FilePlus width="22px"/>
           <p>Add new Note</p>
         </button>
         <ul>{notesElements}</ul>

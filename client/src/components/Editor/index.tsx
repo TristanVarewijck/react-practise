@@ -7,6 +7,7 @@ import { noteProps } from "../../pages/notes";
 import NoteInputTitle from "../NoteInputTitle";
 import { findCurrentNote, updateNote } from "../../utils/noteActions.util";
 import {differenceBetweenTimestamps} from "../../utils/timestampActions.util";
+import {MoreHorizontal} from 'react-feather';
 
 type EditorProps = {
   notes: noteProps[];
@@ -42,7 +43,7 @@ const Editor = ({
             <li>{currentNote.title}</li>
           </ul>
           <button className="breadCrumpButton">
-            <img src="assets/icons/more-i.svg" alt="more-icon" />
+            <MoreHorizontal/>
           </button>
         </div>
 
@@ -63,7 +64,7 @@ const Editor = ({
                     opacity: ".55",
                   }}
                 >
-                  Last modified:
+                 Last modified:
                 </th>
                 <td>{differenceBetweenTimestamps(currentNote.date)}</td>
               </tr>
