@@ -4,6 +4,7 @@ import Split from "react-split";
 import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
 import { createNewNote } from "../utils/noteActions.util";
+import { useCollection } from "../firebaseService/useCollection";
 
 export type noteProps = {
   readonly id: string;
@@ -12,8 +13,9 @@ export type noteProps = {
   date: number;
 };
 
+
 const Notes = (): JSX.Element => {
-  const [notes, setNotes] = useState<noteProps[]>([]);
+  const notes = useCollection("notes")
   const [currentNoteId, setCurrentNoteId] = useState<string>("");
   
   return (
@@ -22,13 +24,11 @@ const Notes = (): JSX.Element => {
         <Split sizes={[30, 70]} direction="horizontal" className="split">
           <SideBar
             notes={notes}
-            setNotes={setNotes}
             setCurrentNoteId={setCurrentNoteId}
             currentNoteId={currentNoteId}
           />
           <Editor
             notes={notes}
-            setNotes={setNotes}
             currentNoteId={currentNoteId}
             setCurrentNoteId={setCurrentNoteId}
           />
@@ -39,7 +39,6 @@ const Notes = (): JSX.Element => {
           <button
             onClick={() => {
               const newNote = createNewNote();
-              setNotes((prevState: noteProps[]) => [...prevState, newNote]);
               setCurrentNoteId(newNote.id);
             }}
           >

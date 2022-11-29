@@ -1,4 +1,4 @@
-import { noteProps } from "../pages/notes";
+import { noteProps } from "../types";
 
 export const differenceBetweenTimestamps = (timestamp: number): string => {
   const newDate = new Date(timestamp);

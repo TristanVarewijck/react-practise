@@ -13,12 +13,10 @@ type EditorProps = {
   notes: noteProps[];
   currentNoteId: string;
   setCurrentNoteId: any;
-  setNotes: (notes: noteProps[]) => void;
 };
 
 const Editor = ({
   notes,
-  setNotes,
   currentNoteId,
   setCurrentNoteId,
 }: EditorProps): JSX.Element => {
@@ -52,7 +50,6 @@ const Editor = ({
             notes={notes}
             currentNoteId={currentNoteId}
             setCurrentNoteId={setCurrentNoteId}
-            setNotes={setNotes}
           />
           <table>
             <tbody>
@@ -76,7 +73,7 @@ const Editor = ({
           value={currentNote.body}
           onChange={(text: string) => {
             const updatedNotes = updateNote(currentNoteId, text, "mde", notes);
-            setNotes([...updatedNotes]);
+            // setNotes([...updatedNotes]);
           }}
           selectedTab={selectedTab}
           onTabChange={setSelectedTab}

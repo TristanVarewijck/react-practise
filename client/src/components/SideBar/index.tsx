@@ -8,7 +8,6 @@ import { FilePlus} from 'react-feather';
 
 export interface sideBarProps {
   notes: noteProps[];
-  setNotes: (notes: noteProps[]) => void;
   setCurrentNoteId: (id: string) => void;
   currentNoteId: string;
 }
@@ -16,7 +15,6 @@ export interface sideBarProps {
 // setTime;
 const SideBar = ({
   notes,
-  setNotes,
   setCurrentNoteId,
   currentNoteId,
 }: sideBarProps): JSX.Element => {
@@ -34,7 +32,6 @@ const SideBar = ({
               notes={notes}
               currentNoteId={currentNoteId}
               setCurrentNoteId={setCurrentNoteId}
-              setNotes={setNotes}
             />
           ) : (
             <h3>{note.title}</h3>
@@ -51,14 +48,23 @@ const SideBar = ({
         <button
           onClick={() => {
             const newNote = createNewNote();
-            setNotes([...notes, newNote]);
             setCurrentNoteId(newNote.id);
           }}
         >
           <FilePlus width="22px"/>
           <p>Add new Note</p>
         </button>
-        <ul>{notesElements}</ul>
+
+        {
+          notes.length > 0 ? (
+            <ul>{notesElements}</ul>
+          ) : (
+            <div className="emptyState">
+              <p>You have no notes</p>
+             </div>
+          )
+        }
+        
       </div>
     </>
   );

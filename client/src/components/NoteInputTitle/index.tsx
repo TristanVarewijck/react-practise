@@ -12,14 +12,12 @@ interface NoteInputTitleProps {
   notes: any;
   currentNoteId: any;
   setCurrentNoteId: (id: string) => void;
-  setNotes: any;
 }
 
 const NoteInputTitle = ({
   notes,
   currentNoteId,
   setCurrentNoteId,
-  setNotes,
 }: NoteInputTitleProps): JSX.Element => {
   const [isLocked, setIsLocked] = useState<boolean>(true);
   const currentNote = findCurrentNote(notes, currentNoteId);
@@ -34,7 +32,7 @@ const NoteInputTitle = ({
           )
         ) {
           const newNotes = deleteNote(notes, currentNoteId);
-          setNotes([...newNotes]);
+          // setNotes([...newNotes]);
           if (newNotes.length >= 1 && currentNoteIndex === 0) {
             setCurrentNoteId(newNotes[0].id);
           } else if (newNotes.length >= 1 && currentNoteIndex !== newNotes.length) {
@@ -50,7 +48,7 @@ const NoteInputTitle = ({
   const handleTitleChange = (e: any) => {
     const newTitle = e.target.value;
     const updatedNotes = updateNote(currentNoteId, newTitle, "title", notes);
-    setNotes([...updatedNotes]);
+    // setNotes([...updatedNotes]);
   }
   
   return (
