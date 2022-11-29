@@ -6,17 +6,13 @@ import Editor from "../components/Editor";
 // import { createNewNote } from "../utils/noteActions.util";
 import { useCollection } from "../firebaseService/useCollection";
 
-export type noteProps = {
-  readonly id: string;
-  body?: string;
-  title?: string;
-  date: number;
-};
+
 
 
 const Notes = (): JSX.Element => {
   const notes = useCollection("notes")
   const [currentNoteId, setCurrentNoteId] = useState<string>("");
+  console.log(notes); 
   
   return (
     <>

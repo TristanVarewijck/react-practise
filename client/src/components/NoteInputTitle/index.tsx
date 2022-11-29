@@ -5,7 +5,7 @@ import {
   findCurrentNote,
   deleteNote,
 } from "../../utils/noteActions.util";
-import { noteProps } from "../../pages/notes";
+import { noteProps } from "../../types"
 import { Trash2, Edit3} from 'react-feather';
 
 interface NoteInputTitleProps {

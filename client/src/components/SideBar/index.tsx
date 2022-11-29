@@ -1,5 +1,5 @@
 import "./style.css";
-import { noteProps } from "../../pages/notes";
+import { noteProps } from "../../types";
 import React from "react";
 import { createNewNote } from "../../utils/noteActions.util";
 import NoteInputTitle from "../NoteInputTitle";

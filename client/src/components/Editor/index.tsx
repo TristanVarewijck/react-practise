@@ -3,7 +3,7 @@ import ReactMde from "react-mde";
 import Showdown from "showdown";
 import "./style.css";
 import React from "react";
-import { noteProps } from "../../pages/notes";
+import { noteProps } from "../../types";
 import NoteInputTitle from "../NoteInputTitle";
 import { findCurrentNote, updateNote } from "../../utils/noteActions.util";
 import {differenceBetweenTimestamps} from "../../utils/timestampActions.util";
