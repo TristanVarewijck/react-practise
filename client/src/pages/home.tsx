@@ -2,11 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+
+  const auth = true;
   return (
     <>
-      <h1>Two React Projects</h1>
-      <Link to={"/game"}>React Game</Link>
-      <Link to={"/notes"}>React Notes app</Link>
+      <h1>Notes app</h1>
+
+     {auth ? (
+        <div className="emptyState">
+          <Link to="/notes">Notes</Link>
+        </div>
+      ) : (
+
+        <div className="authenticate">
+          <Link to="/login">Login</Link>
+        </div>
+        
+      )}
+      
     </>
   );
 };

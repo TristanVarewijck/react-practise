@@ -3,7 +3,7 @@ import { useState } from "react";
 import Split from "react-split";
 import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
-import { createNewNote } from "../utils/noteActions.util";
+// import { createNewNote } from "../utils/noteActions.util";
 import { useCollection } from "../firebaseService/useCollection";
 
 export type noteProps = {
@@ -20,32 +20,34 @@ const Notes = (): JSX.Element => {
   
   return (
     <>
-      {notes.length > 0 ? (
+    {
+      notes.length > 0 ? (
         <Split sizes={[30, 70]} direction="horizontal" className="split">
-          <SideBar
-            notes={notes}
-            setCurrentNoteId={setCurrentNoteId}
-            currentNoteId={currentNoteId}
-          />
-          <Editor
-            notes={notes}
-            currentNoteId={currentNoteId}
-            setCurrentNoteId={setCurrentNoteId}
-          />
-        </Split>
+        <SideBar
+          notes={notes}
+          setCurrentNoteId={setCurrentNoteId}
+          currentNoteId={currentNoteId}
+        />
+        <Editor
+          notes={notes}
+          currentNoteId={currentNoteId}
+          setCurrentNoteId={setCurrentNoteId}
+        />
+      </Split>
       ) : (
+        <Split sizes={[30, 70]} direction="horizontal" className="split">
+        <SideBar
+          notes={notes}
+          setCurrentNoteId={setCurrentNoteId}
+          currentNoteId={currentNoteId}
+        />
         <div className="emptyState">
-          <h1>You have no notes</h1>
-          <button
-            onClick={() => {
-              const newNote = createNewNote();
-              setCurrentNoteId(newNote.id);
-            }}
-          >
-            Create one now
-          </button>
         </div>
-      )}
+      </Split>
+      )
+        
+    }
+       
     </>
   );
 };
