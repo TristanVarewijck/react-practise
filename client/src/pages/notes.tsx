@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import Split from "react-split";
 import SideBar from "../components/SideBar";
 import Editor from "../components/Editor";
@@ -11,9 +10,7 @@ import { useCollection } from "../firebaseService/useCollection";
 
 const Notes = (): JSX.Element => {
   const notes = useCollection("notes")
-  const [currentNoteId, setCurrentNoteId] = useState<string>("");
-  console.log(notes); 
-  
+  const [activeNote, setActiveNote] = useState<string>('');
   return (
     <>
     {
@@ -21,21 +18,21 @@ const Notes = (): JSX.Element => {
         <Split sizes={[30, 70]} direction="horizontal" className="split">
         <SideBar
           notes={notes}
-          setCurrentNoteId={setCurrentNoteId}
-          currentNoteId={currentNoteId}
+          activeNote={activeNote}
+          setActiveNote={setActiveNote}
         />
         <Editor
           notes={notes}
-          currentNoteId={currentNoteId}
-          setCurrentNoteId={setCurrentNoteId}
+          activeNote={activeNote}
+          setActiveNote={setActiveNote}
         />
       </Split>
       ) : (
         <Split sizes={[30, 70]} direction="horizontal" className="split">
         <SideBar
           notes={notes}
-          setCurrentNoteId={setCurrentNoteId}
-          currentNoteId={currentNoteId}
+          activeNote={activeNote}
+          setActiveNote={setActiveNote}
         />
         <div className="emptyState">
         </div>

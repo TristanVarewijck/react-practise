@@ -1,37 +1,41 @@
 import "./style.css";
 import { noteProps } from "../../types";
 import React from "react";
-import { createNewNote } from "../../utils/noteActions.util";
 import NoteInputTitle from "../NoteInputTitle";
 import { differenceBetweenTimestamps, sortNotesByTimestamp } from "../../utils/timestampActions.util";
 import { FilePlus} from 'react-feather';
+import { setDocument } from "../../firebaseService/setDocument";
 
 export interface sideBarProps {
   notes: noteProps[];
-  setCurrentNoteId: (id: string) => void;
-  currentNoteId: string;
+  activeNote: string; 
+  setActiveNote: (id: string) => void;
 }
 
 // setTime;
 const SideBar = ({
   notes,
-  setCurrentNoteId,
-  currentNoteId,
+  activeNote,
+  setActiveNote,
 }: sideBarProps): JSX.Element => {
   const sortedNotes = sortNotesByTimestamp(notes);
   const notesElements = sortedNotes.map((note) => {
+     
     return (
       <li key={note.id}>
         <div
-          className={`note ${note.id === currentNoteId ? "selected-note" : ""}`}
-          onClick={() => setCurrentNoteId(note.id)}
+          className={`note ${note.id === activeNote || note.id === localStorage.getItem("currentNoteId") ? "selected-note" : ""}`}
+          onClick={() => {
+            localStorage.setItem("currentNoteId", note.id);
+            setActiveNote(note.id);
+          }}
         >
           <small>{differenceBetweenTimestamps(note.date) }</small>
-          {note.id === currentNoteId ? (
+          {note.id === activeNote ? (
             <NoteInputTitle
               notes={notes}
-              currentNoteId={currentNoteId}
-              setCurrentNoteId={setCurrentNoteId}
+              activeNote={activeNote}
+              setActiveNote={setActiveNote}
             />
           ) : (
             <h3>{note.title}</h3>
@@ -46,9 +50,11 @@ const SideBar = ({
       <div className="sidebar">
         <h1>My Notes</h1>
         <button
-          onClick={() => {
-            const newNote = createNewNote();
-            setCurrentNoteId(newNote.id);
+          onClick={ async (e)  => {
+            e.preventDefault();
+            const newNoteId = await setDocument("notes");
+            localStorage.setItem("currentNoteId", newNoteId);
+            setActiveNote(newNoteId);
           }}
         >
           <FilePlus width="22px"/>

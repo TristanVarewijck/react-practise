@@ -7,7 +7,7 @@ type collectionEnum = "notes" | "users";
 export const useCollection = (collectionName: collectionEnum) => {
     const [items, setItems] = useState<any[]>([]);
     const ref = collection(db, collectionName) as CollectionReference<any>;
-    
+
     useEffect(() => {
     const q = query(ref);
     onSnapshot(q, (query) => {

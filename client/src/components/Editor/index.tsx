@@ -11,14 +11,14 @@ import {MoreHorizontal} from 'react-feather';
 
 type EditorProps = {
   notes: noteProps[];
-  currentNoteId: string;
-  setCurrentNoteId: any;
+  activeNote: string;
+  setActiveNote: (id: string) => void;
 };
 
 const Editor = ({
   notes,
-  currentNoteId,
-  setCurrentNoteId,
+  activeNote,
+  setActiveNote,
 }: EditorProps): JSX.Element => {
   const [selectedTab, setSelectedTab] = useState<any>("write");
   const converter = new Showdown.Converter({
@@ -28,7 +28,7 @@ const Editor = ({
     tasklists: true,
   });
 
-  const currentNote = findCurrentNote(notes, currentNoteId);
+  const currentNote = findCurrentNote(notes, localStorage.getItem("currentNoteId") || "");
   return (
     <>
       <div className="editor">
@@ -48,8 +48,8 @@ const Editor = ({
         <div className="heading">
           <NoteInputTitle
             notes={notes}
-            currentNoteId={currentNoteId}
-            setCurrentNoteId={setCurrentNoteId}
+            activeNote={activeNote}
+            setActiveNote={setActiveNote}
           />
           <table>
             <tbody>
@@ -72,7 +72,7 @@ const Editor = ({
         <ReactMde
           value={currentNote.body}
           onChange={(text: string) => {
-            const updatedNotes = updateNote(currentNoteId, text, "mde", notes);
+            const updatedNotes = updateNote(currentNote.id, text, "mde", notes);
             // setNotes([...updatedNotes]);
           }}
           selectedTab={selectedTab}

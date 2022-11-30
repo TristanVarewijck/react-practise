@@ -1,9 +1,8 @@
 import { nanoid } from "nanoid";
 import { noteProps } from "../types";
 import { setDocument } from "../firebaseService/setDocument";
-import {deleteDocument} from "../firebaseService/deleteDocument";
 
-export const createNewNote = ():void => {
+export const createNewNote = ():string => {
   const newNote = {
     id: nanoid(),
     body: "# Type your markdown note's title here",
@@ -11,7 +10,9 @@ export const createNewNote = ():void => {
     date: Date.now(),
   };
 
-  setDocument("notes", newNote); 
+  setDocument("notes", newNote)
+
+  return newNote.id
 };
 
 export const findCurrentNote = (
@@ -41,9 +42,5 @@ export const updateNote = (
       return note;
     }
   });
-};
-
-export const deleteNote = (notes: noteProps[], currentNoteId: string) => {
-  deleteDocument("notes", currentNoteId);
 };
 

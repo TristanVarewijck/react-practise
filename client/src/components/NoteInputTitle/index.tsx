@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import "./style.css";
 import {
-  updateNote,
+  // updateNote,
   findCurrentNote,
-  deleteNote,
 } from "../../utils/noteActions.util";
 import { noteProps } from "../../types"
 import { Trash2, Edit3} from 'react-feather';
-
+import {deleteDocument} from "../../firebaseService/deleteDocument"
 interface NoteInputTitleProps {
   notes: any;
-  currentNoteId: any;
-  setCurrentNoteId: (id: string) => void;
+  activeNote: string;
+  setActiveNote: (id: string) => void;
 }
 
 const NoteInputTitle = ({
   notes,
-  currentNoteId,
-  setCurrentNoteId,
+  activeNote,
+  setActiveNote,
+  // currentNoteId,
 }: NoteInputTitleProps): JSX.Element => {
   const [isLocked, setIsLocked] = useState<boolean>(true);
-  const currentNote = findCurrentNote(notes, currentNoteId);
+  const currentNote = findCurrentNote(notes, localStorage.getItem("currentNoteId") || "");
   const currentNoteIndex = notes.findIndex(
-    (note: noteProps) => note.id === currentNoteId
+    (note: noteProps) => note.id === currentNote.id
   );
   const handleDelete = (e: any) => {
     e.stopPropagation();
@@ -31,23 +31,26 @@ const NoteInputTitle = ({
             `Are you sure you want to delete this note?: ${currentNote.title}`
           )
         ) {
-          const newNotes = deleteNote(notes, currentNoteId);
-          // setNotes([...newNotes]);
-          if (newNotes.length >= 1 && currentNoteIndex === 0) {
-            setCurrentNoteId(newNotes[0].id);
-          } else if (newNotes.length >= 1 && currentNoteIndex !== newNotes.length) {
-            setCurrentNoteId(newNotes[currentNoteIndex].id)
-          } else if (currentNoteIndex === newNotes.length){
-            setCurrentNoteId(newNotes[newNotes.length - 1].id);
+
+
+          // delete the document from firebase-firestore collection
+          deleteDocument("notes", currentNote.id);
+
+          if (notes.length >= 1 && currentNoteIndex === 0) {
+            localStorage.setItem("currentNoteId", notes[0].id);
+          } else if (notes.length >= 1 && currentNoteIndex !== notes.length) {
+            localStorage.setItem("currentNoteId", notes[currentNoteIndex].id);
+          } else if (currentNoteIndex === notes.length){
+            localStorage.setItem("currentNoteId", notes[notes.length - 1].id);
           } else {
-            setCurrentNoteId("");
+            localStorage.setItem("currentNoteId", "");
           }
         }
   }
 
   const handleTitleChange = (e: any) => {
-    const newTitle = e.target.value;
-    const updatedNotes = updateNote(currentNoteId, newTitle, "title", notes);
+    // const newTitle = e.target.value;
+    // const updatedNotes = updateNote(currentNoteId, newTitle, "title", notes);
     // setNotes([...updatedNotes]);
   }
   
