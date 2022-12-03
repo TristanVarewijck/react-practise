@@ -34,17 +34,22 @@ const NoteInputTitle = ({
 
 
           // delete the document from firebase-firestore collection
-          deleteDocument("notes", currentNote.id);
-
           if (notes.length >= 1 && currentNoteIndex === 0) {
+            console.log("invoked-1")
             localStorage.setItem("currentNoteId", notes[0].id);
           } else if (notes.length >= 1 && currentNoteIndex !== notes.length) {
+            console.log("invoked-2")
             localStorage.setItem("currentNoteId", notes[currentNoteIndex].id);
           } else if (currentNoteIndex === notes.length){
+            console.log("invoked-3")
             localStorage.setItem("currentNoteId", notes[notes.length - 1].id);
           } else {
+            console.log("invoked-4")
             localStorage.setItem("currentNoteId", "");
           }
+
+
+          deleteDocument("notes", currentNote.id);
         }
   }
 
