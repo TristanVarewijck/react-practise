@@ -1,0 +1,16 @@
+  // const sentPDF  = async () => {
+        //   await fetch("http://127.0.0.1:5001/notes-app-75129/us-central1/getPdfFromStorageHttp", {
+        //   method: "POST",
+        //   headers: { 
+        //     "Content-Type": "application/pdf",
+        //     "Authorization": "Bearer " + await auth.currentUser?.getIdToken(), 
+        //     "Access-Control-Allow-Origin": "*",
+        //   },
+        //   body: antPdfs,      
+        // })
+        // }
+
+        // sentPDF();
+
+
+optional fetch

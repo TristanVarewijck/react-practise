@@ -8,7 +8,6 @@ import NoteInputTitle from "../NoteInputTitle";
 import { findCurrentNote, updateNote } from "../../utils/noteActions.util";
 import {differenceBetweenTimestamps} from "../../utils/timestampActions.util";
 import {MoreHorizontal} from 'react-feather';
-import UploadPdf from "../UploadPdf";
 
 
 type EditorProps = {
@@ -45,7 +44,6 @@ const Editor = ({
           <button className="breadCrumpButton">
             <MoreHorizontal/>
           </button>
-          <UploadPdf/>
         </div>
 
         <div className="heading">

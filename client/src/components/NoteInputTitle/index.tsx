@@ -7,9 +7,10 @@ import {
 import { noteProps } from "../../types"
 import { Trash2, Edit3} from 'react-feather';
 import {deleteDocument} from "../../firebaseService/deleteDocument"
+import UploadPdf from "../UploadPdf";
 interface NoteInputTitleProps {
   notes: any;
-  activeNote: string;
+  activeNote: string
   setActiveNote: (id: string) => void;
 }
 
@@ -31,8 +32,6 @@ const NoteInputTitle = ({
             `Are you sure you want to delete this note?: ${currentNote.title}`
           )
         ) {
-
-
           // delete the document from firebase-firestore collection
           if (notes.length >= 1 && currentNoteIndex === 0) {
             console.log("invoked-1")
@@ -47,8 +46,6 @@ const NoteInputTitle = ({
             console.log("invoked-4")
             localStorage.setItem("currentNoteId", "");
           }
-
-
           deleteDocument("notes", currentNote.id);
         }
   }
@@ -58,6 +55,9 @@ const NoteInputTitle = ({
     // const updatedNotes = updateNote(currentNoteId, newTitle, "title", notes);
     // setNotes([...updatedNotes]);
   }
+
+
+  console.log(currentNote.id)
   
   return (
     <>
@@ -94,7 +94,7 @@ const NoteInputTitle = ({
         width="18"
         height="18"/></button>
       </form>
-
+      <UploadPdf noteId={currentNote.id}/>
     </>
   );
 };

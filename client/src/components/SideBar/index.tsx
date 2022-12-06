@@ -60,7 +60,6 @@ const SideBar = ({
           <FilePlus width="22px"/>
           <p>Add new Note</p>
         </button>
-
         {
           notes.length > 0 ? (
             <ul>{notesElements}</ul>
@@ -70,7 +69,6 @@ const SideBar = ({
              </div>
           )
         }
-        
       </div>
     </>
   );
