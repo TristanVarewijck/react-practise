@@ -7,7 +7,6 @@ import {
 import { noteProps } from "../../types"
 import { Trash2, Edit3} from 'react-feather';
 import {deleteDocument} from "../../firebaseService/deleteDocument"
-import UploadPdf from "../UploadPdf";
 interface NoteInputTitleProps {
   notes: any;
   activeNote: string
@@ -94,7 +93,7 @@ const NoteInputTitle = ({
         width="18"
         height="18"/></button>
       </form>
-      <UploadPdf noteId={currentNote.id}/>
+    
     </>
   );
 };

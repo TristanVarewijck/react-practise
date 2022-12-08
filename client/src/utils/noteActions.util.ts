@@ -8,10 +8,11 @@ export const createNewNote = ():string => {
     body: "# Type your markdown note's title here",
     title: "New Note",
     date: Date.now(),
+    driveStatus: "none",
+    docRef: "",
   };
 
   setDocument("notes", newNote)
-
   return newNote.id
 };
 

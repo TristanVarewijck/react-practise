@@ -8,6 +8,7 @@ import NoteInputTitle from "../NoteInputTitle";
 import { findCurrentNote, updateNote } from "../../utils/noteActions.util";
 import {differenceBetweenTimestamps} from "../../utils/timestampActions.util";
 import {MoreHorizontal} from 'react-feather';
+import UploadPdf from "../UploadPdf";
 
 
 type EditorProps = {
@@ -68,12 +69,13 @@ const Editor = ({
               </tr>
             </tbody>
           </table>
+          <UploadPdf noteId={currentNote.id}/>
         </div>
 
         <ReactMde
           value={currentNote.body}
           onChange={(text: string) => {
-            const updatedNotes = updateNote(currentNote.id, text, "mde", notes);
+            // const updatedNotes = updateNote(currentNote.id, text, "mde", notes);
             // setNotes([...updatedNotes]);
           }}
           selectedTab={selectedTab}

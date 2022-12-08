@@ -9,7 +9,8 @@ export const setDocument = async (collectionName: collectionEnum, data?: any) =>
         body: "# Type your markdown note's title here",
         title: "New Note",
         date: Date.now(),
-        images: "",
+        driveStatus: "none",
+        docRef: "",
         ...data
        })
        return ref.id; 

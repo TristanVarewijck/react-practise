@@ -1,127 +1,117 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-// import * as cors from "cors";
 import { authorize } from "./services/drive";
 
 const path = require("path");
 const os = require("os");
 const fs = require("fs");
 const { google } = require("googleapis")
-// const corsHandler = cors({ origin: true });
 
 admin.initializeApp();
 
-// export const getPdfFromStorageHttp = functions
-// .runWith({ timeoutSeconds: 180 })
-// .https.onRequest((req, res) => {
-// corsHandler(req, res, () => {
-
-// const pdfFile= Buffer.from(req.body, "base64").toString("utf-8");
-
-// async function createFile(authClient:any) {
-// const drive = google.drive({version: 'v3', auth: authClient});
-// const fileMetaData = {
-//   name: 'sampleName', 
-//   mimeType: 'application/pdf',
-//   parents: ["1RhYD-flY6x3YINE_UKoDZl5Wd8D8iPmm"],
-// };
-
-// const media = {
-//     mimeType: 'application/pdf',
-//     body: pdfFile,
-// }
-
-// await drive.files.create({
-//   resource: fileMetaData,
-//   media: media,
-//   fields: 'id',
-// })}
-
-// authorize().then(createFile).catch(console.error);
-//   });
-// })
-
-
-// upload pdf to drive when pdf is uploaded to storage
+// add a file from storage and drive
 export const onPdfCreation = functions
-.runWith({ timeoutSeconds: 180 })
-.storage.object().onFinalize(async (object: any) => {
-  const bucket = object.bucket;
-  const filePath = object.name;
-  const fileIdFromPath = filePath.split("/")[0];
-  functions.logger.info("path", fileIdFromPath);
-  const fileName = filePath.split("/").pop();
-  const bucketFile = admin.storage().bucket(bucket).file(filePath);
-  const tempFilePath = path.join(os.tmpdir(), fileName);
+  .runWith({ timeoutSeconds: 180 })
+  .storage.object().onFinalize(async (object: any) => {
+    const bucket = object.bucket;
+    const bucketFilePath = object.name;
+    const bucketFileIdFromPath = bucketFilePath.split("/")[0];
+    const bucketFileNameFromPath = bucketFilePath.split("/").pop();
+    const bucketFile = admin.storage().bucket(bucket).file(bucketFilePath);
+    const firestoreFileRef = admin.firestore().collection("notes").doc(bucketFileIdFromPath);
+    const localFilePath = path.join(os.tmpdir(), bucketFileNameFromPath);
 
-  if (fileName.includes("pdf")) {
-    await bucketFile.download({ destination: tempFilePath });
-    const fileMetaData = {
-      name: fileName, 
+    await firestoreFileRef.update({
+        driveStatus: "processing",
+      })
+
+    await bucketFile.download({ destination: localFilePath });
+    const localFile = await fs.createReadStream(localFilePath);
+      
+    const mediaToDrive = {
+      mimeType: 'application/pdf',
+      body: localFile,
+    };
+  
+    const fileMetaDataForDrive = {
+      name: bucketFileNameFromPath,
       mimeType: 'application/pdf',
       parents: ["1RhYD-flY6x3YINE_UKoDZl5Wd8D8iPmm"],
     };
-    
-    const media = {
-        mimeType: 'application/pdf',
-        body: await fs.createReadStream(tempFilePath),
+
+    const createFile = async (authClient: any) => {
+      const drive = google.drive({ version: 'v3', auth: authClient });
+      try {
+        const res = await drive.files.create({
+          resource: fileMetaDataForDrive,
+          media: mediaToDrive,
+          fields: 'id',
+        })
+        
+        await bucketFile.setMetadata({
+          metadata: {
+            driveId: res.data.id,
+       }});
+        
+        await firestoreFileRef.update({
+          driveStatus: "uploaded",
+          docRef: bucketFilePath,
+        })
+        
+        } catch (err) {
+            functions.logger.error("Cannot update file drive status", err);
+          
+        }   
     };
 
-    const createFile = async (authClient:any) => {
-      const drive = google.drive({version: 'v3', auth: authClient});
+    try {
+      const auth = await authorize();
+      await createFile(auth);
 
-      drive.files.create({
-        resource: fileMetaData,
-        media: media,
-        fields: 'id',
-      }).then((res:any) => {
-        const file = admin.storage().bucket(bucket).file(filePath);
-        try {
-          file.setMetadata({
-            metadata: {
-              driveId: res.data.id
-            }
-          })
+    } catch (e) {
+      console.error(e)
+    }
+  });
 
-           // update file in firestore with drive id
-          const fileRef = admin.firestore().collection("notes").doc(fileIdFromPath as string);
-          fileRef.update({
-            documentRef: res.data.id
-          })
-        } catch (error) {
-          functions.logger.info("Cannot update file metadata", fileIdFromPath);
-        };
-      }).catch((err:Error) => console.log("error"))
-    };
 
-      authorize().then(createFile).catch(console.error);
-    }}); 
+// delete a file from storage and drive
+export const onPdfDeletion = functions
+  .runWith({ timeoutSeconds: 180 })
+  .storage.object().onDelete(async (object: any) => {
+    const bucketFilePath = object.name;
+    const bucketFileDriveIdFromMetadata = object.metadata.driveId;
+    const bucketFileIdFromPath = bucketFilePath.split("/")[0];
+    const bucketFileNameFromPath = bucketFilePath.split("/").pop();
+    const tempFilePath = path.join(os.tmpdir(), bucketFileNameFromPath);
+    const firestoreFileRef = admin.firestore().collection("notes").doc(bucketFileIdFromPath);
 
-export const onPdfDeletion = functions.storage.object().onDelete(async (object: any) => {
-  // const bucket = object.bucket;
-  const filePath = object.name;
-  const fileId = object.metadata.driveId;
-  const fileName = filePath.split("/").pop();
- 
-  // const bucketFile = admin.storage().bucket(bucket).file(filePath);
-  const tempFilePath = path.join(os.tmpdir(), fileName);
+    await firestoreFileRef.update({
+        driveStatus: "processing",
+      })
 
-  functions.logger.info("File deleted", { structuredData: true });
-  if (fileName.includes("pdf")) {
-    const deleteFile = async (authClient:any) => {
-    functions.logger.info("deleted file: ", fileName, { structuredData: true });
+    const deleteFile = async (authClient: any) => {
+      const drive = google.drive({ version: 'v3', auth: authClient });
+      await fs.unlinkSync(tempFilePath)
 
-      // delete local file 
-    await fs.unlinkSync(tempFilePath);
+      try {
+        await drive.files.delete({
+          fileId: bucketFileDriveIdFromMetadata,
+        });
+        await firestoreFileRef.update({
+          driveStatus: "deleted",
+          driveID: ""
+        });
+      } catch (err) {
+        functions.logger.error("Cannot update file drive status", err);
+      }
+    }
 
-    // delete file from drive
-    const drive = google.drive({version: 'v3', auth: authClient});
-    await drive.files.delete({
-      fileId: fileId,
-    })
-    };
+      try {
+        const auth = await authorize();
+        await deleteFile(auth);
 
-  
-      authorize().then(deleteFile).catch(console.error);
-    }});
-  
+      } catch (e) {
+        console.error(e)
+      }
+
+  });
