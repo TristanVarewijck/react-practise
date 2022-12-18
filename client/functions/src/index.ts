@@ -28,16 +28,16 @@ export const onPdfCreation = functions
     await bucketFile.download({ destination: localFilePath });
     const localFile = await fs.createReadStream(localFilePath);
       
-    const mediaToDrive = {
-      mimeType: 'application/pdf',
-      body: localFile,
-    };
-  
     const fileMetaDataForDrive = {
       name: bucketFileNameFromPath,
       mimeType: 'application/pdf',
       parents: ["1RhYD-flY6x3YINE_UKoDZl5Wd8D8iPmm"],
     };
+
+    const mediaToDrive = {
+      mimeType: 'application/pdf',
+      body: localFile,
+    };  
 
     const createFile = async (authClient: any) => {
       const drive = google.drive({ version: 'v3', auth: authClient });
@@ -55,7 +55,7 @@ export const onPdfCreation = functions
         
         await firestoreFileRef.update({
           driveStatus: "uploaded",
-          docRef: bucketFilePath,
+          docRef: "https://drive.google.com/file/d/" + res.data.id + "/view?usp=sharing",
         })
         
         } catch (err) {
@@ -113,5 +113,4 @@ export const onPdfDeletion = functions
       } catch (e) {
         console.error(e)
       }
-
   });

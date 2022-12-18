@@ -30,7 +30,7 @@ const storage = getStorage(app);
 const functions = getFunctions(app);
 
 if(window.location.hostname === "localhost") {
-    connectFirestoreEmulator(db, "localhost", 8080);
+    connectFirestoreEmulator(db, "localhost", 8081);
     connectAuthEmulator(auth, "http://localhost:9099");
     connectFunctionsEmulator(functions, "localhost", 5001);
     connectStorageEmulator(storage, "localhost", 9199);

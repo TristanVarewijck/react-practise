@@ -69,7 +69,10 @@ const Editor = ({
               </tr>
             </tbody>
           </table>
-          <UploadPdf noteId={currentNote.id}/>
+          <UploadPdf 
+            noteId={currentNote.id} 
+            documentType={"indentification"} 
+            modalName={"notes"} />
         </div>
 
         <ReactMde
